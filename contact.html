@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Reed Creative Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #FFFFFF;
+            --black: #0A0A0A;
+            --gold: #C9A84C;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* ── Cursor ── */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, background 0.3s, mix-blend-mode 0.3s;
+        }
+
+        .cursor-dot.hover {
+            width: 14px;
+            height: 14px;
+            background: var(--gold);
+            mix-blend-mode: normal;
+        }
+
+        a, button, input, textarea { cursor: none; }
+
+        /* ── Nav ── */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 60px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--black);
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-logo:hover { color: var(--gold); }
+
+        .nav-back {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--black);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s, gap 0.3s;
+        }
+
+        .nav-back:hover {
+            color: var(--gold);
+            gap: 12px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: rgba(0,0,0,0.06);
+            border-radius: 20px;
+            padding: 3px;
+        }
+
+        .lang-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            border: none;
+            background: transparent;
+            color: rgba(0,0,0,0.35);
+            cursor: none;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .lang-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* ── Contact Layout ── */
+        .contact-page {
+            display: flex;
+            min-height: calc(100vh - 90px);
+            padding: 100px 60px 120px;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left side */
+        .contact-left {
+            flex: 0 0 320px;
+            padding-top: 20px;
+        }
+
+        .contact-left h1 {
+            font-size: clamp(40px, 5vw, 60px);
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.05;
+        }
+
+        .contact-left h1 span { color: var(--gold); }
+
+        .contact-email-link {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-top: 4px;
+        }
+
+        .contact-email-link:hover {
+            color: var(--gold);
+        }
+
+        /* Right side */
+        .contact-right {
+            flex: 1;
+        }
+
+        /* ── Form ── */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+
+        .form-group label .optional {
+            font-weight: 400;
+            color: #BBB;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            font-size: 10px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            padding: 14px 0;
+            border: none;
+            border-bottom: 1.5px solid #D0D0D0;
+            background: transparent;
+            color: var(--black);
+            outline: none;
+            transition: border-color 0.3s;
+            resize: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #BBB;
+            font-weight: 300;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .form-group-message {
+            margin-top: 24px;
+            margin-bottom: 48px;
+        }
+
+        /* ── Submit ── */
+        .submit-btn {
+            display: inline-block;
+            padding: 18px 64px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--black);
+            color: var(--white);
+            border: 2px solid var(--black);
+            transition: all 0.4s ease;
+            cursor: none;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ── Footer ── */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 60px;
+            border-top: 1px solid #E5E5E5;
+            font-size: 13px;
+            font-weight: 400;
+            color: #999;
+        }
+
+        /* ── Animations ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .contact-left.fade-up { animation-delay: 0s; }
+        .contact-right.fade-up { animation-delay: 0.2s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+
+            .contact-page {
+                flex-direction: column;
+                padding: 60px 24px 80px;
+                gap: 48px;
+            }
+
+            .contact-left {
+                flex: none;
+                padding-top: 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-group {
+                margin-bottom: 24px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 8px;
+                padding: 24px;
+                text-align: center;
+            }
+
+            .cursor-dot { display: none; }
+            body, a, button, input, textarea { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+
+    <!-- Nav -->
+    <nav>
+        <a href="index.html" class="nav-logo">Reed Creative Agency</a>
+        <div class="nav-right">
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="langEN">EN</button>
+                <button class="lang-btn" id="langZH">中文</button>
+            </div>
+            <a href="index.html" class="nav-back">← Back</a>
+        </div>
+    </nav>
+
+    <!-- Contact -->
+    <div class="contact-page">
+        <div class="contact-left fade-up">
+            <h1 data-en="Contact Us<span>.</span>" data-zh="联系我们<span>.</span>">Contact Us<span>.</span></h1>
+            <a href="mailto:partnerships@reedcreativeagency.com" class="contact-email-link">partnerships@reedcreativeagency.com</a>
+        </div>
+
+        <div class="contact-right fade-up">
+            <form action="mailto:partnerships@reedcreativeagency.com" method="POST" enctype="text/plain">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" data-en="First Name" data-zh="名">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" data-en="Last Name" data-zh="姓">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" data-en="Email" data-zh="邮箱">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" data-en="Phone" data-zh="电话">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (000) 000-0000">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="instagram">Instagram <span class="optional" data-en="(optional)" data-zh="(选填)">(optional)</span></label>
+                        <input type="text" id="instagram" name="instagram" placeholder="@username">
+                    </div>
+                    <div class="form-group">
+                        <label for="tiktok">TikTok <span class="optional" data-en="(optional)" data-zh="(选填)">(optional)</span></label>
+                        <input type="text" id="tiktok" name="tiktok" placeholder="@username">
+                    </div>
+                </div>
+                <div class="form-group form-group-message">
+                    <label for="message" data-en="Message" data-zh="留言">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-en="Submit" data-zh="提交">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div>&copy; 2025 Reed Creative Agency</div>
+        <div>reedcreativeagency.com</div>
+    </footer>
+
+    <script>
+        const dot = document.querySelector('.cursor-dot');
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, input, textarea').forEach(el => {
+            el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+            el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        });
+
+        // Language toggle with persistence
+        const langEN = document.getElementById('langEN');
+        const langZH = document.getElementById('langZH');
+        let currentLang = localStorage.getItem('reed-lang') || 'en';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('reed-lang', lang);
+            langEN.classList.toggle('active', lang === 'en');
+            langZH.classList.toggle('active', lang === 'zh');
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                if (el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href').startsWith('mailto:')) return;
+                el.innerHTML = el.getAttribute('data-' + lang);
+            });
+        }
+
+        langEN.addEventListener('click', () => switchLang('en'));
+        langZH.addEventListener('click', () => switchLang('zh'));
+        if (currentLang !== 'en') switchLang(currentLang);
+    </script>
+
+</body>
+</html>

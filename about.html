@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Reed Creative Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --white: #FFFFFF;
+            --black: #0A0A0A;
+            --gold: #C9A84C;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+
+        .cursor-dot {
+            position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+            background: var(--white); border-radius: 50%; pointer-events: none;
+            z-index: 9999; mix-blend-mode: difference; transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, background 0.3s, mix-blend-mode 0.3s;
+        }
+        .cursor-dot.hover { width: 14px; height: 14px; background: var(--gold); mix-blend-mode: normal; }
+
+        a, button { cursor: none; }
+
+        /* ── Nav ── */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 28px 60px; border-bottom: 1px solid #E5E5E5;
+        }
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px;
+            letter-spacing: 3px; color: var(--black); text-transform: uppercase;
+            text-decoration: none; transition: color 0.3s;
+        }
+        .nav-logo:hover { color: var(--gold); }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-back {
+            font-size: 13px; font-weight: 500; color: var(--black); text-decoration: none;
+            letter-spacing: 1px; display: flex; align-items: center; gap: 8px;
+            transition: color 0.3s, gap 0.3s;
+        }
+        .nav-back:hover { color: var(--gold); gap: 12px; }
+        .lang-toggle { display: flex; background: rgba(0,0,0,0.06); border-radius: 20px; padding: 3px; }
+        .lang-btn {
+            font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600;
+            letter-spacing: 1px; padding: 5px 12px; border: none; background: transparent;
+            color: rgba(0,0,0,0.35); cursor: none; border-radius: 16px; transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+        .lang-btn.active { background: var(--black); color: var(--white); }
+
+        /* ── Hero ── */
+        .about-hero {
+            padding: 100px 60px 80px;
+            max-width: 900px;
+        }
+        .about-hero h1 {
+            font-size: clamp(40px, 5vw, 64px); font-weight: 700; line-height: 1.05; margin-bottom: 20px;
+        }
+        .about-hero h1 span { color: var(--gold); }
+        .about-hero .subtitle {
+            font-size: 18px; font-weight: 300; color: #666; line-height: 1.7; max-width: 560px;
+        }
+
+        /* ── Intro Section (photo + intro text) ── */
+        .intro {
+            display: flex; align-items: center; gap: 64px;
+            padding: 0 60px 100px; max-width: 1200px; margin: 0 auto;
+        }
+        .intro-photo {
+            flex: 0 0 340px; height: 440px; overflow: hidden; background: #E8E8E8;
+        }
+        .intro-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .intro-photo:hover img { transform: scale(1.05); }
+        .intro-text { flex: 1; }
+        .intro-text .name-title {
+            font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+        }
+        .intro-text p {
+            font-size: 16px; font-weight: 300; line-height: 1.85; color: #444; margin-bottom: 20px;
+        }
+
+        /* ── Pull Quote ── */
+        .pull-quote {
+            background: var(--black); color: var(--white); padding: 80px 60px;
+            text-align: center;
+        }
+        .pull-quote blockquote {
+            font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.5vw, 48px);
+            font-weight: 400; font-style: italic; line-height: 1.3; max-width: 800px; margin: 0 auto;
+        }
+        .pull-quote blockquote span { color: var(--gold); }
+
+        /* ── Stats Bar ── */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 80px;
+            padding: 64px 60px; border-bottom: 1px solid #E5E5E5;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 4vw, 60px);
+            font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 10px; font-weight: 600; letter-spacing: 2px;
+            text-transform: uppercase; color: #999;
+        }
+
+        /* ── Story Sections ── */
+        .story-section {
+            padding: 80px 60px; max-width: 800px; margin: 0 auto;
+        }
+        .story-section h2 {
+            font-size: clamp(28px, 3vw, 40px); font-weight: 700; margin-bottom: 24px; line-height: 1.15;
+        }
+        .story-section h2 em {
+            font-style: italic; color: var(--gold); font-weight: 400;
+        }
+        .story-section p {
+            font-size: 16px; font-weight: 300; line-height: 1.85; color: #444; margin-bottom: 20px;
+        }
+        .story-divider {
+            width: 48px; height: 2px; background: var(--gold); margin: 0 auto;
+        }
+
+        /* ── Event Highlight ── */
+        .event-highlight {
+            background: var(--black); color: var(--white); padding: 80px 60px;
+            display: flex; align-items: center; gap: 64px; max-width: 100%;
+        }
+        .event-highlight-text { flex: 1; max-width: 560px; }
+        .event-highlight-text .label {
+            font-size: 10px; font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+        }
+        .event-highlight-text h2 {
+            font-size: clamp(28px, 3vw, 44px); font-weight: 700; margin-bottom: 20px; line-height: 1.15; color: var(--white);
+        }
+        .event-highlight-text p {
+            font-size: 16px; font-weight: 300; line-height: 1.8; color: #AAA;
+        }
+        .event-stats {
+            flex: 0 0 auto; display: flex; flex-direction: column; gap: 40px; padding-left: 64px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+        .event-stat-num {
+            font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700;
+            color: var(--gold); line-height: 1;
+        }
+        .event-stat-label {
+            font-size: 10px; font-weight: 600; letter-spacing: 2px;
+            text-transform: uppercase; color: #666; margin-top: 4px;
+        }
+
+        /* ── Closing ── */
+        .closing {
+            padding: 80px 60px; max-width: 800px; margin: 0 auto; text-align: center;
+        }
+        .closing p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(22px, 2.5vw, 32px); font-weight: 400; font-style: italic;
+            line-height: 1.5; color: #444;
+        }
+        .closing p span { color: var(--gold); font-style: normal; font-weight: 700; }
+
+        /* ── CTA ── */
+        .about-cta {
+            text-align: center; padding: 0 60px 100px;
+        }
+        .about-cta a {
+            display: inline-block; padding: 18px 56px; font-family: 'Montserrat', sans-serif;
+            font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none; background: var(--black); color: var(--white);
+            border: 2px solid var(--black); transition: all 0.4s ease; cursor: none;
+        }
+        .about-cta a:hover { background: var(--gold); border-color: var(--gold); }
+
+        /* ── Footer ── */
+        footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 32px 60px; border-top: 1px solid #E5E5E5;
+            font-size: 12px; font-weight: 400; color: #999;
+        }
+        .footer-links { display: flex; align-items: center; gap: 12px; }
+        .footer-links a { color: #999; text-decoration: none; transition: color 0.3s; cursor: none; }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* ── Animations ── */
+        .reveal {
+            opacity: 0; transform: translateY(36px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .fade-in { opacity: 0; animation: fadeIn 1s ease forwards; }
+        .fade-in.d1 { animation-delay: 0.15s; }
+        .fade-in.d2 { animation-delay: 0.3s; }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .intro { flex-direction: column; gap: 40px; }
+            .intro-photo { flex: none; width: 100%; max-width: 400px; height: 400px; }
+            .event-highlight { flex-direction: column; gap: 48px; }
+            .event-stats { flex-direction: row; gap: 48px; padding-left: 0; border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+            .about-hero { padding: 60px 24px 48px; }
+            .intro { padding: 0 24px 60px; }
+            .intro-photo { height: 320px; }
+            .pull-quote { padding: 56px 24px; }
+            .stats-bar { flex-wrap: wrap; gap: 32px; padding: 48px 24px; }
+            .story-section { padding: 56px 24px; }
+            .event-highlight { padding: 56px 24px; }
+            .event-stats { flex-wrap: wrap; gap: 32px; }
+            .closing { padding: 56px 24px; }
+            .about-cta { padding: 0 24px 60px; }
+            footer { flex-direction: column; gap: 8px; padding: 24px; text-align: center; }
+            .cursor-dot { display: none; }
+            body, a, button { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+
+    <nav>
+        <a href="index.html" class="nav-logo">Reed Creative Agency</a>
+        <div class="nav-right">
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="langEN">EN</button>
+                <button class="lang-btn" id="langZH">中文</button>
+            </div>
+            <a href="index.html" class="nav-back" data-en="← Back" data-zh="← 返回">← Back</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="about-hero">
+        <h1 class="fade-in" data-en="Joey Reed<span>.</span>" data-zh="Joey Reed<span>.</span>">Joey Reed<span>.</span></h1>
+        <p class="subtitle fade-in d1" data-en="Founder, Reed Creative Agency" data-zh="创始人，Reed Creative Agency">Founder, Reed Creative Agency</p>
+    </div>
+
+    <!-- Intro: Photo + Opening -->
+    <div class="intro">
+        <div class="intro-photo reveal">
+            <img src="pictures/founder joey reed.JPG" alt="Joey Reed">
+        </div>
+        <div class="intro-text reveal">
+            <div class="name-title" data-en="The Founder" data-zh="创始人">The Founder</div>
+            <p data-en="Joey Reed isn't a talent manager who stumbled into the creator economy. He built his career inside it." data-zh="Joey Reed 不是一个偶然进入创作者经济的经纪人。他在这个行业内建立了自己的职业生涯。">Joey Reed isn't a talent manager who stumbled into the creator economy. He built his career inside it.</p>
+            <p data-en="With over 8 million followers across platforms, Joey is one of the most recognized viral creators in the US. People know him for his dance content and the &quot;Wrap Me in Plastic&quot; series, where his fans tell him where to go or what to do, and he actually does it." data-zh="Joey 在各平台拥有超过800万粉丝，是美国最具知名度的病毒式创作者之一。人们因他的舞蹈内容和「Wrap Me in Plastic」系列而认识他——粉丝告诉他去哪里或做什么，他就真的去做。">With over 8 million followers across platforms, Joey is one of the most recognized viral creators in the US. People know him for his dance content and the "Wrap Me in Plastic" series, where his fans tell him where to go or what to do, and he actually does it.</p>
+        </div>
+    </div>
+
+    <!-- Pull Quote -->
+    <div class="pull-quote reveal">
+        <blockquote data-en="&ldquo;That's always been his approach. <span>Say it, and he shows up.</span>&rdquo;" data-zh="&ldquo;这一直是他的风格。<span>说了就做。</span>&rdquo;">&ldquo;That's always been his approach. <span>Say it, and he shows up.</span>&rdquo;</blockquote>
+    </div>
+
+
+    <!-- The Problem -->
+    <div class="story-section reveal">
+        <h2 data-en="The problem <em>nobody was solving.</em>" data-zh="没有人在解决的<em>问题。</em>">The problem <em>nobody was solving.</em></h2>
+        <p data-en="When he started building his audience, he kept noticing the same thing. Creators and brands had no real foundation of trust between them. Nobody in the room actually understood both sides." data-zh="在建立自己的受众群体时，他不断注意到同一个问题：创作者和品牌之间没有真正的信任基础。房间里没有人真正理解双方。">When he started building his audience, he kept noticing the same thing. Creators and brands had no real foundation of trust between them. Nobody in the room actually understood both sides.</p>
+        <p data-en="So Joey did what came naturally. He started connecting the people around him. Creators he knew. Celebrities in his network. Making introductions that should have already existed." data-zh="于是 Joey 做了最自然的事——开始连接身边的人。他认识的创作者，他人脉中的名人，促成那些本该早已存在的合作。">So Joey did what came naturally. He started connecting the people around him. Creators he knew. Celebrities in his network. Making introductions that should have already existed.</p>
+    </div>
+
+    <div class="story-divider reveal"></div>
+
+    <!-- The Agency -->
+    <div class="story-section reveal">
+        <h2 data-en="Built by a creator, <em>for creators.</em>" data-zh="由创作者打造，<em>为创作者服务。</em>">Built by a creator, <em>for creators.</em></h2>
+        <p data-en="Reed Creative Agency came out of that. The idea is simple. The best people to run creator campaigns are creators themselves." data-zh="Reed Creative Agency 由此诞生。理念很简单：最适合运营创作者活动的人就是创作者自己。">Reed Creative Agency came out of that. The idea is simple. The best people to run creator campaigns are creators themselves.</p>
+        <p data-en="Joey knows what relationships cost and what they are worth. He knows what rates are real and which ones are inflated. And he knows what actually performs because he is still creating every week." data-zh="Joey 知道关系的成本和价值，知道哪些报价是真实的、哪些是虚高的。他知道什么内容真正有效，因为他每周仍在创作。">Joey knows what relationships cost and what they are worth. He knows what rates are real and which ones are inflated. And he knows what actually performs because he is still creating every week.</p>
+    </div>
+
+    <div class="story-divider reveal"></div>
+
+    <!-- China -->
+    <div class="story-section reveal">
+        <h2 data-en="Two markets. <em>One agency.</em>" data-zh="两个市场。<em>一家机构。</em>">Two markets. <em>One agency.</em></h2>
+        <p data-en="His connection to China is something he has built over years. Joey has expanded into the Chinese market, helped American celebrities collaborate with Chinese talent, and worked with Chinese brands looking to grow their presence in the US." data-zh="他与中国的联系是多年积累的成果。Joey 已拓展至中国市场，帮助美国名人与中国人才合作，并与希望在美国发展的中国品牌合作。">His connection to China is something he has built over years. Joey has expanded into the Chinese market, helped American celebrities collaborate with Chinese talent, and worked with Chinese brands looking to grow their presence in the US.</p>
+        <p data-en="He operates across both cultures and both markets in a way that most agencies in this space simply do not." data-zh="他以大多数同行机构无法企及的方式，跨越两种文化和两个市场运营。">He operates across both cultures and both markets in a way that most agencies in this space simply do not.</p>
+    </div>
+
+    <!-- Event Highlight -->
+    <div class="event-highlight reveal">
+        <div class="event-highlight-text">
+            <div class="label" data-en="Los Angeles, 2024" data-zh="洛杉矶，2024">Los Angeles, 2024</div>
+            <h2 data-en="One night. One network. One room." data-zh="一个夜晚。一个人脉。一个房间。">One night. One network. One room.</h2>
+            <p data-en="Joey produced and hosted one of the biggest influencer events in LA — a $100,000 activation at an NBA player's private compound. Over 300 creators and celebrities came through. Just the network he had spent years building, all in one room." data-zh="Joey 在洛杉矶制作并主持了最大的网红活动之一——在一位NBA球员的私人庄园举办的价值10万美元的品牌激活活动。超过300位创作者和名人到场。这就是他花了多年建立的人脉网络，齐聚一堂。">Joey produced and hosted one of the biggest influencer events in LA — a $100,000 activation at an NBA player's private compound. Over 300 creators and celebrities came through. Just the network he had spent years building, all in one room.</p>
+        </div>
+        <div class="event-stats">
+            <div>
+                <div class="event-stat-num">$100K</div>
+                <div class="event-stat-label" data-en="Production" data-zh="制作">Production</div>
+            </div>
+            <div>
+                <div class="event-stat-num">300+</div>
+                <div class="event-stat-label" data-en="Creators & Celebrities" data-zh="创作者和名人">Creators & Celebrities</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Closing -->
+    <div class="closing reveal">
+        <p data-en="Reed Creative Agency is everything he has learned and everyone he knows, built into a business. The access brands have been looking for has always existed. <span>They just needed someone on the inside to open the door.</span>" data-zh="Reed Creative Agency 是他所学到的一切和他认识的每一个人，凝聚成的一份事业。品牌一直在寻找的资源早已存在。<span>他们只是需要一个内部人来打开那扇门。</span>">Reed Creative Agency is everything he has learned and everyone he knows, built into a business. The access brands have been looking for has always existed. <span>They just needed someone on the inside to open the door.</span></p>
+    </div>
+
+    <!-- CTA -->
+    <div class="about-cta reveal">
+        <a href="contact.html" data-en="Work With Us" data-zh="与我们合作">Work With Us</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div>&copy; 2025 Reed Creative Agency. All rights reserved.</div>
+        <div class="footer-links">
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Cursor
+        const dot = document.querySelector('.cursor-dot');
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+            el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Language
+        const langEN = document.getElementById('langEN');
+        const langZH = document.getElementById('langZH');
+        let currentLang = localStorage.getItem('reed-lang') || 'en';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('reed-lang', lang);
+            langEN.classList.toggle('active', lang === 'en');
+            langZH.classList.toggle('active', lang === 'zh');
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                if (el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href').startsWith('mailto:')) return;
+                el.innerHTML = el.getAttribute('data-' + lang);
+            });
+        }
+
+        langEN.addEventListener('click', () => switchLang('en'));
+        langZH.addEventListener('click', () => switchLang('zh'));
+        if (currentLang !== 'en') switchLang(currentLang);
+    </script>
+
+</body>
+</html>

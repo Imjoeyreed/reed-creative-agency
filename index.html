@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reed Creative Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #FFFFFF;
+            --black: #0A0A0A;
+            --gold: #C9A84C;
+            --card-bg: #F5F4F0;
+            --dark-bg: #0A0A0A;
+            --line: rgba(255,255,255,0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Chinese font override */
+        body.lang-zh {
+            font-family: 'Noto Sans SC', 'Montserrat', sans-serif;
+        }
+
+        body.lang-zh h1,
+        body.lang-zh h2,
+        body.lang-zh h3,
+        body.lang-zh h4 {
+            font-family: 'Noto Sans SC', 'Cormorant Garamond', serif;
+        }
+
+        /* ── Custom Cursor (dot only) ── */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, background 0.3s, mix-blend-mode 0.3s;
+        }
+
+        .cursor-dot.hover {
+            width: 14px;
+            height: 14px;
+            background: var(--gold);
+            mix-blend-mode: normal;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 60px;
+            background: transparent;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        nav.hidden {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
+        nav.scrolled {
+            background: var(--black);
+            padding: 16px 60px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--white);
+            text-transform: uppercase;
+            position: relative;
+            z-index: 201;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            z-index: 201;
+        }
+
+        /* ── Language Toggle ── */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 4px;
+            z-index: 201;
+            backdrop-filter: blur(4px);
+        }
+
+        .lang-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border: none;
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            cursor: none;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .lang-btn.active {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--white);
+        }
+
+        /* ── Hamburger ── */
+        .hamburger {
+            width: 32px;
+            height: 20px;
+            position: relative;
+            cursor: none;
+            z-index: 201;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--white);
+            position: absolute;
+            left: 0;
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+        }
+
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { bottom: 0; }
+
+        .hamburger.active span:nth-child(1) {
+            top: 9px;
+            transform: rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            bottom: 9px;
+            transform: rotate(-45deg);
+        }
+
+        /* ── Fullscreen Menu Overlay ── */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .menu-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .menu-links li {
+            overflow: hidden;
+        }
+
+        .menu-links a {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            line-height: 1.2;
+            padding: 8px 0;
+            transform: translateY(110%);
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.18, 1), color 0.3s;
+            cursor: none;
+        }
+
+        .menu-overlay.active .menu-links a {
+            transform: translateY(0);
+        }
+
+        .menu-links li:nth-child(1) a { transition-delay: 0.15s; }
+        .menu-links li:nth-child(2) a { transition-delay: 0.25s; }
+        .menu-links li:nth-child(3) a { transition-delay: 0.35s; }
+        .menu-links li:nth-child(4) a { transition-delay: 0.45s; }
+        .menu-links li:nth-child(5) a { transition-delay: 0.55s; }
+
+        .menu-links a:hover {
+            color: var(--gold);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0 60px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1A1A1A;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        .hero-bg-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1);
+        }
+
+        .hero:hover .hero-bg-inner {
+            transform: scale(1.04);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(10, 10, 10, 0.75) 0%,
+                rgba(10, 10, 10, 0.45) 50%,
+                rgba(10, 10, 10, 0.2) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(44px, 5.5vw, 80px);
+            font-weight: 700;
+            line-height: 1.08;
+            margin-bottom: 24px;
+            color: var(--white);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .hero-content h1 span {
+            color: var(--gold);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 480px;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.3s forwards;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 16px 48px;
+            background: transparent;
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 2px solid var(--white);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.6s forwards;
+            cursor: none;
+        }
+
+        .hero-cta:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ── Founder Strip ── */
+        .founder-strip {
+            background: var(--white);
+            padding: 80px 60px;
+            display: flex;
+            align-items: center;
+            gap: 56px;
+            overflow: hidden;
+        }
+
+        .founder-label {
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .founder-label-inner {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: 1px;
+            transform: translateX(-110%);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 0, 0.25, 1), opacity 0.9s ease;
+            white-space: nowrap;
+        }
+
+        .founder-label-inner .gold {
+            color: var(--gold);
+        }
+
+        .founder-strip.visible .founder-label-inner {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .founder-photo {
+            width: 280px;
+            height: 360px;
+            flex-shrink: 0;
+            background: #E8E8E8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            transform: translateY(60px);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 0, 0.25, 1) 0.15s, opacity 0.9s ease 0.15s;
+        }
+
+        .founder-strip.visible .founder-photo {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .founder-photo-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1);
+        }
+
+        .founder-photo:hover .founder-photo-inner {
+            transform: scale(1.08);
+        }
+
+        .founder-bio {
+            flex: 1;
+            transform: translateX(60px);
+            opacity: 0;
+            transition: transform 0.9s cubic-bezier(0.25, 0, 0.25, 1) 0.3s, opacity 0.9s ease 0.3s;
+        }
+
+        .founder-strip.visible .founder-bio {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .founder-bio p {
+            font-size: 17px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #555;
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 24px;
+        }
+
+        .founder-story-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            transition: gap 0.3s ease, color 0.3s ease;
+            cursor: none;
+        }
+
+        .founder-story-link:hover {
+            gap: 16px;
+        }
+
+        .founder-story-link svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .founder-story-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* ── Section Shared ── */
+        .section-title {
+            font-size: clamp(32px, 4vw, 52px);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        /* ── Services Section ── */
+        #services {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        #services .section-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        #services .section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(40px, 5vw, 72px);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            color: var(--white);
+            line-height: 0.95;
+            margin-bottom: 0;
+        }
+
+        #services .section-title em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--gold);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: var(--gold);
+            color: var(--white);
+            border: 2px solid var(--gold);
+            transition: all 0.35s ease;
+            cursor: none;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        /* Services reveal animation */
+        .svc-row.reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .svc-row.reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Services responsive */
+        @media (max-width: 768px) {
+            .svc-row, .svc-row.flip {
+                grid-template-columns: 1fr !important;
+                min-height: auto !important;
+                direction: ltr !important;
+            }
+            .svc-photo-fill { min-height: 200px !important; }
+            .svc-body { padding: 32px 20px !important; }
+            .svc-row.flip .svc-body { padding: 32px 20px !important; }
+            .svc-heading { font-size: 26px !important; margin-bottom: 14px !important; }
+            .svc-p { font-size: 13px !important; margin-bottom: 20px !important; }
+            .svc-cat { font-size: 9px !important; margin-bottom: 14px !important; }
+            .svc-num-tag { top: 16px !important; left: 16px !important; }
+            .svc-row.flip .svc-num-tag { right: 16px !important; }
+            .svc-vline { display: none !important; }
+            #services .section-header { padding: 32px 20px 24px !important; flex-direction: column; align-items: flex-start !important; gap: 12px; }
+            #services .section-title { font-size: 32px !important; }
+            #services .section-label { font-size: 9px !important; }
+        }
+
+        /* ── China Section ── */
+        .china-section {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 120px 60px;
+            overflow: hidden;
+        }
+
+        .china-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .china-text {
+            flex: 1;
+        }
+
+        .china-text .section-subtitle {
+            color: var(--gold);
+        }
+
+        .china-text h2 {
+            font-size: clamp(28px, 3.5vw, 48px);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 24px;
+        }
+
+        .china-text h2 .zh-chars {
+            display: block;
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 0.6em;
+            color: var(--gold);
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        .china-text p {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #AAA;
+            margin-bottom: 20px;
+        }
+
+        .china-stats {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .china-stat {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .china-stat.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .china-stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .china-stat-label {
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── Our Clients ── */
+        .our-clients {
+            padding: 120px 60px;
+            background: var(--white);
+        }
+
+        .clients-inner {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .clients-left {
+            flex: 0 0 380px;
+        }
+
+        .clients-left .section-subtitle {
+            color: var(--gold);
+        }
+
+        .clients-left h2 {
+            font-size: clamp(36px, 4vw, 56px);
+            font-weight: 700;
+            margin-bottom: 32px;
+            line-height: 1.1;
+        }
+
+        .clients-tabs {
+            display: flex;
+            gap: 12px;
+        }
+
+        .client-tab {
+            display: inline-block;
+            padding: 14px 32px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--black);
+            background: transparent;
+            color: var(--black);
+            cursor: none;
+            transition: all 0.35s ease;
+        }
+
+        .client-tab:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        .client-tab.active {
+            background: var(--black);
+            border-color: var(--black);
+            color: var(--white);
+        }
+
+        .client-tab.active:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* Photo grid */
+        .clients-right {
+            flex: 1;
+            position: relative;
+            min-height: 480px;
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 16px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .clients-grid.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+            position: relative;
+        }
+
+        .client-photo {
+            background: #E8E8E8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 220px;
+            overflow: hidden;
+        }
+
+        .client-photo-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.6s cubic-bezier(0.25, 0, 0.25, 1);
+        }
+
+        .client-photo:hover .client-photo-inner {
+            transform: scale(1.08);
+        }
+
+        /* Staggered grid: first item spans full width */
+        .client-photo:first-child {
+            grid-column: 1 / -1;
+            min-height: 240px;
+        }
+
+        .clients-view-all {
+            grid-column: 1 / -1;
+            text-align: right;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            padding-top: 12px;
+            transition: color 0.3s;
+            cursor: none;
+        }
+
+        .clients-view-all:hover {
+            color: var(--black);
+        }
+
+        /* ── Contact ── */
+        .contact {
+            padding: 120px 60px;
+            text-align: center;
+            border-top: 1px solid #E5E5E5;
+        }
+
+        .contact h2 {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 18px 56px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: var(--black);
+            color: var(--white);
+            border: 2px solid var(--black);
+            transition: all 0.4s ease;
+            cursor: none;
+        }
+
+        .contact-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ── Footer ── */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 60px;
+            border-top: 1px solid #E5E5E5;
+            font-size: 12px;
+            font-weight: 400;
+            color: #999;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-links span {
+            color: #D0D0D0;
+        }
+
+        /* ── Slide In Animation ── */
+        .slide-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── All interactive elements ── */
+        a, button {
+            cursor: none;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .hero {
+                padding: 0 40px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .founder-strip {
+                flex-direction: column;
+                padding: 48px 40px;
+                text-align: center;
+                gap: 32px;
+            }
+
+            .china-inner {
+                flex-direction: column;
+                gap: 48px;
+            }
+
+            .clients-inner {
+                flex-direction: column;
+                gap: 48px;
+            }
+
+            .clients-left {
+                flex: none;
+                text-align: center;
+            }
+
+            .clients-tabs {
+                justify-content: center;
+            }
+
+            .clients-right {
+                min-height: 400px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 16px 20px;
+            }
+
+            nav.scrolled {
+                padding: 12px 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .nav-logo {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            .hero {
+                padding: 0 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 15px;
+            }
+
+            .hero-cta {
+                padding: 14px 36px;
+                font-size: 11px;
+            }
+
+            .founder-strip {
+                padding: 40px 20px;
+                gap: 24px;
+            }
+
+            .founder-label-inner {
+                font-size: 24px;
+            }
+
+            .founder-photo {
+                width: 180px;
+                height: 240px;
+            }
+
+            .founder-bio p {
+                font-size: 15px;
+            }
+
+            .founder-story-link {
+                font-size: 11px;
+            }
+
+            .china-section,
+            .our-clients,
+            .contact {
+                padding: 60px 20px;
+            }
+
+            .china-text h2 {
+                font-size: 28px;
+            }
+
+            .china-text p {
+                font-size: 14px;
+            }
+
+            .china-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .china-stat-number {
+                font-size: 32px;
+            }
+
+            .clients-left h2 {
+                font-size: 32px !important;
+                letter-spacing: 6px !important;
+            }
+
+            .client-tab {
+                padding: 10px 20px;
+                font-size: 10px;
+            }
+
+            .clients-right {
+                min-height: 320px;
+            }
+
+            .client-photo {
+                min-height: 140px;
+            }
+
+            .client-photo:first-child {
+                min-height: 160px;
+            }
+
+            .contact h2 {
+                font-size: 32px;
+            }
+
+            .contact-btn {
+                padding: 14px 40px;
+                font-size: 12px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                padding: 24px 20px;
+                text-align: center;
+                font-size: 11px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                font-size: 11px;
+            }
+
+            .lang-toggle {
+                padding: 3px;
+                gap: 2px;
+            }
+
+            .lang-btn {
+                font-size: 10px;
+                padding: 8px 14px;
+                min-width: 40px;
+                text-align: center;
+            }
+
+            .menu-links a {
+                font-size: 40px;
+            }
+
+            /* Hide custom cursor on touch devices */
+            .cursor-dot {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            a, button {
+                cursor: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+
+    <!-- Nav -->
+    <nav id="mainNav">
+        <div class="nav-logo">Reed Creative Agency</div>
+        <div class="nav-right">
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="langEN" data-lang="en">EN</button>
+                <button class="lang-btn" id="langZH" data-lang="zh">中文</button>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Fullscreen Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay">
+        <ul class="menu-links">
+            <li><a href="#services" class="menu-link" data-en="Services" data-zh="服务">Services</a></li>
+            <li><a href="about.html" class="menu-link" data-en="About" data-zh="关于我们">About</a></li>
+            <li><a href="#china" class="menu-link" data-en="China Market" data-zh="中国市场">China Market</a></li>
+            <li><a href="#our-clients" class="menu-link" data-en="Our Clients" data-zh="我们的客户">Our Clients</a></li>
+            <li><a href="contact.html" class="menu-link" data-en="Contact" data-zh="联系我们">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-bg-inner"><img src="pictures/IMG_4606.JPG" alt="Reed Creative Agency Event" style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+        <div class="hero-content">
+            <h1 data-en="We Don't Just<br>Know Creators<span>.</span><br>We're One<span>.</span>" data-zh="我们不仅了解<br>创作者<span>.</span><br>我们就是<span>.</span>">We Don't Just<br>Know Creators<span>.</span><br>We're One<span>.</span></h1>
+            <p data-en="A creator-led agency built for brand partnerships, campaigns, and cultural moments." data-zh="一家由创作者主导的机构，专注于品牌合作、营销活动和文化时刻。">A creator-led agency built for brand partnerships, campaigns, and cultural moments.</p>
+            <a href="#contact" class="hero-cta" data-en="Work With Us" data-zh="与我们合作">Work With Us</a>
+        </div>
+    </section>
+
+    <!-- Founder Strip -->
+    <section class="founder-strip" id="founder-strip">
+        <div class="founder-label">
+            <div class="founder-label-inner" data-en="Our Founder <span class='gold'>&mdash;</span>" data-zh="我们的创始人 <span class='gold'>&mdash;</span>">Our Founder <span class="gold">&mdash;</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+            <div class="founder-photo">
+                <div class="founder-photo-inner"><img src="pictures/founder joey reed.JPG" alt="Joey Reed" style="width:100%;height:100%;object-fit:cover;"></div>
+            </div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--black);margin-top:16px;">Joey Reed</div>
+        </div>
+        <div class="founder-bio">
+            <p data-en="Reed Creative Agency is the bridge between creators and culture — built from the inside to power brand partnerships, campaigns, and activations that actually move people." data-zh="Reed Creative Agency 是创作者与文化之间的桥梁——从内部构建，推动真正打动人心的品牌合作、营销活动和激活。">Reed Creative Agency is the bridge between creators and culture — built from the inside to power brand partnerships, campaigns, and activations that actually move people.</p>
+            <a href="about.html" class="founder-story-link" data-en-text="Our Story" data-zh-text="我们的故事">
+                <span data-en="Our Story" data-zh="我们的故事">Our Story</span>
+                <svg viewBox="0 0 20 20"><path d="M4 10h12M12 5l5 5-5 5"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <div id="services">
+      <div class="section-header" style="padding: 40px 48px 32px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+          <div class="section-label" style="margin-bottom:18px"><span data-lang="en">Expertise</span><span data-lang="zh" style="display:none">专业服务</span></div>
+          <div class="section-title"><span data-lang="en">What we <em>do.</em></span><span data-lang="zh" style="display:none">我们的<em>服务</em></span></div>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:700;color:rgba(255,255,255,0.05);line-height:1;letter-spacing:-0.03em;"></div>
+      </div>
+
+      <style>
+        .svc-row { display:grid; grid-template-columns:1fr 1fr; min-height:360px; border-bottom:1px solid var(--line); overflow:hidden; cursor:pointer; }
+        .svc-row.flip { direction:rtl; }
+        .svc-row.flip > * { direction:ltr; }
+        .svc-photo { position:relative; overflow:hidden; background:#111; }
+        .svc-photo-fill { width:100%; height:100%; min-height:360px; background:#181818; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:transform 0.8s cubic-bezier(0.77,0,0.175,1); }
+        .svc-row:hover .svc-photo-fill { transform:scale(1.04); }
+        .svc-photo-fill svg { width:28px; height:28px; stroke:#2a2a2a; fill:none; stroke-width:1; }
+        .svc-photo-fill span { font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:#2a2a2a; }
+        .svc-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(105deg,rgba(8,8,8,0.15) 0%,rgba(8,8,8,0) 100%); pointer-events:none; }
+        .svc-row.flip .svc-photo::after { background:linear-gradient(255deg,rgba(8,8,8,0.15) 0%,rgba(8,8,8,0) 100%); }
+        .svc-num-tag { position:absolute; top:32px; left:32px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); z-index:2; }
+        .svc-row.flip .svc-num-tag { left:auto; right:32px; }
+        .svc-body { display:flex; flex-direction:column; justify-content:flex-end; padding:36px 40px 36px 48px; background:var(--black); position:relative; }
+        .svc-row.flip .svc-body { padding:36px 48px 36px 40px; }
+        .svc-vline { position:absolute; top:0; left:0; width:2px; height:0%; background:var(--gold); transition:height 0.5s cubic-bezier(0.77,0,0.175,1); }
+        .svc-row.flip .svc-vline { left:auto; right:0; }
+        .svc-row:hover .svc-vline { height:100%; }
+        .svc-cat { font-size:10px; font-weight:500; letter-spacing:0.24em; text-transform:uppercase; color:#666; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+        .svc-cat::before { content:''; width:16px; height:1px; background:#666; flex-shrink:0; }
+        .svc-heading { font-family:'Barlow Condensed',sans-serif; font-size:clamp(28px,3vw,44px); font-weight:700; text-transform:uppercase; letter-spacing:-0.01em; color:var(--white); line-height:0.95; margin-bottom:20px; }
+        .svc-heading em { font-family:'Playfair Display',serif; font-style:italic; font-weight:400; color:var(--gold); text-transform:none; letter-spacing:0; font-size:0.82em; }
+        .svc-coming-badge { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(201,168,76,0.35); padding:5px 14px; display:inline-block; margin-top:14px; margin-left:8px; }
+        .svc-p { font-size:14px; font-weight:300; color:#666; line-height:1.7; max-width:400px; margin-bottom:28px; }
+        .svc-stats { display:flex; gap:40px; padding-top:28px; border-top:1px solid var(--line); }
+        .svc-stat-num { font-family:'Barlow Condensed',sans-serif; font-size:28px; font-weight:700; color:var(--white); letter-spacing:-0.01em; line-height:1; display:block; margin-bottom:4px; }
+        .svc-stat-lbl { font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#666; display:block; }
+        .svc-cta-link { margin-top:auto; padding-top:24px; display:flex; align-items:center; gap:12px; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:#666; text-decoration:none; transition:color 0.2s; cursor:none; }
+        .svc-cta-link::after { content:'\2192'; font-size:16px; transition:transform 0.2s; }
+        .svc-row:hover .svc-cta-link { color:var(--white); }
+        .svc-row:hover .svc-cta-link::after { transform:translateX(6px); }
+        .svc-footer-cta { padding:80px 48px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); gap:40px; }
+        .svc-footer-title { font-family:'Barlow Condensed',sans-serif; font-size:clamp(28px,3.5vw,48px); font-weight:700; text-transform:uppercase; letter-spacing:-0.01em; color:var(--white); line-height:1; }
+        .svc-footer-title em { font-family:'Playfair Display',serif; font-style:italic; font-weight:400; color:var(--gold); text-transform:none; letter-spacing:0; }
+      </style>
+
+      <!-- 01 -->
+      <div class="svc-row reveal">
+        <div class="svc-photo">
+          <div class="svc-photo-fill"><img src="pictures/mega kol campaigns.JPG" alt="Mega KOL Campaigns" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="svc-num-tag">01</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-vline"></div>
+          <div class="svc-cat"><span data-lang="en">Brand Partnerships</span><span data-lang="zh" style="display:none">品牌合作</span></div>
+          <div class="svc-heading"><span data-lang="en">Mega KOL &amp;<br><em>Celebrity</em><br>Campaigns</span><span data-lang="zh" style="display:none">顶级KOL与<br><em>明星</em>合作</span></div>
+          <p class="svc-p"><span data-lang="en">We connect brands with the biggest names in culture. A-list talent, seven-figure reach, and campaigns built to dominate feeds — not just fill them.</span><span data-lang="zh" style="display:none">我们将品牌与文化领域最具影响力的名人连接，打造统治社交媒体的顶级营销活动。</span></p>
+          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Start a Campaign</span><span data-lang="zh" style="display:none">开始合作</span></a>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="svc-row flip reveal">
+        <div class="svc-photo">
+          <div class="svc-photo-fill"><img src="pictures/creator management.JPG" alt="Creator Management" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="svc-num-tag">02</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-vline"></div>
+          <div class="svc-cat"><span data-lang="en">Talent Representation</span><span data-lang="zh" style="display:none">人才代理</span></div>
+          <div class="svc-heading"><span data-lang="en">Creator<br><em>Management</em></span><span data-lang="zh" style="display:none">创作者<em>管理</em></span></div>
+          <p class="svc-p"><span data-lang="en">We handle deal flow, brand negotiations, and relationship management for our roster. Creators create. We close.</span><span data-lang="zh" style="display:none">我们负责交易流程、品牌谈判和关系管理。创作者专注创作，我们负责成交。</span></p>
+          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Join the Roster</span><span data-lang="zh" style="display:none">加入阵容</span></a>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="svc-row reveal">
+        <div class="svc-photo">
+          <div class="svc-photo-fill"><img src="pictures/china market.JPG" alt="China Market" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="svc-num-tag">03</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-vline"></div>
+          <div class="svc-cat"><span data-lang="en">Coming Soon</span><span data-lang="zh" style="display:none">即将推出</span></div>
+          <div class="svc-heading"><span data-lang="en">Jump Into the<br>Chinese <em>Market</em></span><span data-lang="zh" style="display:none">进入<em>中国市场</em></span><div class="svc-coming-badge">Coming Soon</div></div>
+          <p class="svc-p"><span data-lang="en">We're looking to expand marketing in China for US celebrities and Mega KOLs. Native content, native reach — not a repurposed Western campaign.</span><span data-lang="zh" style="display:none">我们正在为美国名人和顶级KOL拓展中国市场营销。原生内容，原生覆盖——不是西方活动的简单复制。</span></p>
+          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Keep Updated</span><span data-lang="zh" style="display:none">保持关注</span></a>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="svc-row flip reveal">
+        <div class="svc-photo">
+          <div class="svc-photo-fill"><img src="pictures/brand acitivations.JPG" alt="Brand Activations" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="svc-num-tag">04</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-vline"></div>
+          <div class="svc-cat"><span data-lang="en">Events · Los Angeles</span><span data-lang="zh" style="display:none">活动 · 洛杉矶</span></div>
+          <div class="svc-heading"><span data-lang="en">Brand<br><em>Activations</em></span><span data-lang="zh" style="display:none">品牌<em>快闪活动</em></span></div>
+          <p class="svc-p"><span data-lang="en">Creator-driven events built to generate millions of organic impressions. We design the moment. The internet does the rest.</span><span data-lang="zh" style="display:none">以创作者为核心的活动，产生数百万次自然曝光。我们设计时刻，互联网完成其余。</span></p>
+          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Sponsor an Event</span><span data-lang="zh" style="display:none">赞助活动</span></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- China Market Section -->
+    <section class="china-section" id="china">
+        <div class="china-inner">
+            <div class="china-text slide-in">
+                <div class="section-subtitle" data-en="Dual Market" data-zh="双市场">Dual Market</div>
+                <h2 data-en="Bridging the US &amp; China Creator Economy<span class='zh-chars'>连接中美创作者经济</span>" data-zh="连接中美创作者经济">Bridging the US &amp; China Creator Economy<span class="zh-chars">连接中美创作者经济</span></h2>
+                <p data-en="We help brands looking to expand into the American market by unlocking cross-border campaigns that resonate with their target audience. From strategy to execution, we bridge the cultural gap so your brand lands with impact." data-zh="我们帮助希望拓展美国市场的品牌，通过跨境营销活动精准触达目标受众。从策略到执行，我们弥合文化差距，让您的品牌产生真正的影响力。">We help brands looking to expand into the American market by unlocking cross-border campaigns that resonate with their target audience. From strategy to execution, we bridge the cultural gap so your brand lands with impact.</p>
+                <p data-en="Bilingual strategy. Bicultural execution. One agency." data-zh="双语策略。双文化执行。一家机构。">Bilingual strategy. Bicultural execution. One agency.</p>
+            </div>
+            <div class="china-stats">
+                <div class="china-stat">
+                    <div class="china-stat-number">1.5B+</div>
+                    <div class="china-stat-label" data-en="Network Reach" data-zh="网络覆盖">Network Reach</div>
+                </div>
+                <div class="china-stat">
+                    <div class="china-stat-number">2</div>
+                    <div class="china-stat-label" data-en="Markets" data-zh="市场">Markets</div>
+                </div>
+                <div class="china-stat">
+                    <div class="china-stat-number">6+</div>
+                    <div class="china-stat-label" data-en="Platforms" data-zh="平台">Platforms</div>
+                </div>
+                <div class="china-stat">
+                    <div class="china-stat-number">100%</div>
+                    <div class="china-stat-label" data-en="Bilingual" data-zh="双语">Bilingual</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Clients -->
+    <section class="our-clients" id="our-clients">
+        <div class="clients-inner">
+            <div class="clients-left slide-in">
+                <h2 style="color: var(--gold); text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 8px;" data-en="Clients" data-zh="客户">Clients</h2>
+                <div class="clients-tabs">
+                    <a href="celebrities.html" class="client-tab active" data-en="Celebrities" data-zh="名人">Celebrities</a>
+                    <a href="brands.html" class="client-tab" data-en="Brands" data-zh="品牌">Brands</a>
+                </div>
+            </div>
+            <div class="clients-right">
+                <!-- Celebrities Grid -->
+                <div class="clients-grid active" id="grid-celebrities">
+                    <div class="client-photo"><div class="client-photo-inner"><img src="pictures/Celebrity Jason Derulo.png" alt="Jason Derulo" style="width:100%;height:100%;object-fit:cover;"></div></div>
+                    <div class="client-photo"><div class="client-photo-inner"><img src="pictures/Celebrity Michael Le.png" alt="Michael Le" style="width:100%;height:100%;object-fit:cover;"></div></div>
+                    <div class="client-photo"><div class="client-photo-inner"><img src="pictures/Celebrity Rich the Kid.JPG" alt="Rich the Kid" style="width:100%;height:100%;object-fit:cover;"></div></div>
+                </div>
+                <!-- Brands Grid -->
+                <div class="clients-grid" id="grid-brands">
+                    <div class="client-photo"><div class="client-photo-inner">INSERT BRAND</div></div>
+                    <div class="client-photo"><div class="client-photo-inner">INSERT BRAND</div></div>
+                    <div class="client-photo"><div class="client-photo-inner">INSERT BRAND</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2 class="slide-in" data-en="Let's Build Something." data-zh="让我们一起创造。">Let's Build Something.</h2>
+        <div class="slide-in" style="margin-top: 40px;">
+            <a href="contact.html" class="contact-btn" data-en="Contact Us" data-zh="联系我们">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>&copy; 2025 Reed Creative Agency. All rights reserved.</div>
+        <div class="footer-links">
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // ── Custom Cursor (dot only) ──
+        const dot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = mouseX + 'px';
+            dot.style.top = mouseY + 'px';
+        });
+
+        // Hover detection for interactive elements
+        function setupCursorHover() {
+            document.querySelectorAll('a, button, .hero-cta, .contact-email, .menu-links a, .hamburger, .lang-btn').forEach(el => {
+                el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+                el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+            });
+        }
+        setupCursorHover();
+
+        // ── Hamburger Menu ──
+        const hamburger = document.getElementById('hamburger');
+        const overlay = document.getElementById('menuOverlay');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        let menuOpen = false;
+
+        hamburger.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            hamburger.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+        });
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                hamburger.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside the links
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay || !e.target.closest('.menu-links')) {
+                menuOpen = false;
+                hamburger.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ── Nav: fade out on scroll past hero ──
+        const mainNav = document.getElementById('mainNav');
+        const heroSection = document.getElementById('hero');
+        let navVisible = true;
+
+        const isMobile = () => window.innerWidth <= 768;
+
+        window.addEventListener('scroll', () => {
+            const heroBottom = heroSection.offsetHeight;
+            const scrollY = window.scrollY;
+
+            if (scrollY > heroBottom * 0.85) {
+                if (isMobile()) {
+                    // On mobile: keep nav visible but switch to solid bg
+                    mainNav.classList.remove('hidden');
+                    mainNav.classList.add('scrolled');
+                    navVisible = true;
+                } else {
+                    if (navVisible) {
+                        mainNav.classList.add('hidden');
+                        mainNav.classList.remove('scrolled');
+                        navVisible = false;
+                    }
+                }
+            } else {
+                if (!navVisible) {
+                    mainNav.classList.remove('hidden');
+                }
+                mainNav.classList.remove('scrolled');
+                navVisible = true;
+            }
+        });
+
+        // ── Scroll direction tracking ──
+        let lastScroll = window.scrollY;
+        let scrollDir = 'down';
+        window.addEventListener('scroll', () => {
+            const curr = window.scrollY;
+            scrollDir = curr > lastScroll ? 'down' : 'up';
+            lastScroll = curr;
+        });
+
+        // ── Reversible observer ──
+        // Scrolling DOWN: element enters viewport from bottom → animate in
+        // Scrolling UP: element leaves viewport from bottom → animate out (reverse)
+        // Scrolling down past (element exits top): stays visible, no flicker
+        function createReversibleObserver(opts) {
+            return new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else if (scrollDir === 'up' && entry.boundingClientRect.top > 0) {
+                        // Only remove when element is BELOW viewport (user scrolled up)
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, opts);
+        }
+
+        // Founder strip
+        const founderStrip = document.getElementById('founder-strip');
+        const founderObserver = createReversibleObserver({ threshold: 0.2 });
+        founderObserver.observe(founderStrip);
+
+        // All other animated elements
+        const observer = createReversibleObserver({
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.slide-in, .china-stat, .svc-row.reveal').forEach((el, i) => {
+            el.style.transitionDelay = `${i % 4 * 0.15}s`;
+            observer.observe(el);
+        });
+
+        // ── Client Tabs ──
+        const clientTabs = document.querySelectorAll('.client-tab');
+        const clientGrids = document.querySelectorAll('.clients-grid');
+
+        clientTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-target');
+
+                // Toggle active tab
+                clientTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Toggle active grid with crossfade
+                clientGrids.forEach(g => g.classList.remove('active'));
+                document.getElementById('grid-' + target).classList.add('active');
+            });
+
+            // Cursor hover
+            tab.addEventListener('mouseenter', () => dot.classList.add('hover'));
+            tab.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        });
+
+        // ── Language Toggle ──
+        const langEN = document.getElementById('langEN');
+        const langZH = document.getElementById('langZH');
+        let currentLang = localStorage.getItem('reed-lang') || 'en';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('reed-lang', lang);
+
+            // Toggle active button
+            langEN.classList.toggle('active', lang === 'en');
+            langZH.classList.toggle('active', lang === 'zh');
+
+            // Toggle body font class
+            document.body.classList.toggle('lang-zh', lang === 'zh');
+
+            // Swap all translatable text (data-en/data-zh attribute pattern)
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                const text = el.getAttribute('data-' + lang);
+                if (el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href').startsWith('mailto:')) {
+                    return;
+                }
+                el.innerHTML = text;
+            });
+
+            // Swap all translatable text (data-lang span pattern)
+            // Exclude lang toggle buttons from being hidden
+            document.querySelectorAll('[data-lang="en"]:not(.lang-btn)').forEach(el => {
+                el.style.display = lang === 'en' ? '' : 'none';
+            });
+            document.querySelectorAll('[data-lang="zh"]:not(.lang-btn)').forEach(el => {
+                el.style.display = lang === 'zh' ? '' : 'none';
+            });
+        }
+
+        langEN.addEventListener('click', () => switchLang('en'));
+        langZH.addEventListener('click', () => switchLang('zh'));
+
+        // Apply saved language on load
+        if (currentLang !== 'en') {
+            switchLang(currentLang);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrities — Reed Creative Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #FFFFFF;
+            --black: #0A0A0A;
+            --gold: #C9A84C;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* ── Cursor ── */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s, height 0.25s, background 0.3s, mix-blend-mode 0.3s;
+        }
+
+        .cursor-dot.hover {
+            width: 14px;
+            height: 14px;
+            background: var(--gold);
+            mix-blend-mode: normal;
+        }
+
+        a, button { cursor: none; }
+
+        /* ── Nav ── */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 60px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+        .nav-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--black);
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-logo:hover { color: var(--gold); }
+
+        .nav-back {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--black);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s, gap 0.3s;
+        }
+
+        .nav-back:hover {
+            color: var(--gold);
+            gap: 12px;
+        }
+
+        /* ── Hero Header ── */
+        .hero {
+            text-align: center;
+            padding: 100px 60px 80px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 16px;
+            font-weight: 300;
+            color: #666;
+            letter-spacing: 0.5px;
+            line-height: 1.7;
+        }
+
+        /* ── Photo Grid ── */
+        .grid-section {
+            padding: 0 60px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-grid {
+            columns: 3;
+            column-gap: 24px;
+        }
+
+        .photo-card {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .photo-card {
+            position: relative;
+        }
+
+        .photo-card a {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .photo-inner {
+            background: #E8E8E8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-inner img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .photo-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 10, 0.6);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+
+        .photo-overlay span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px; font-weight: 300; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--white);
+        }
+
+        .photo-card a:hover .photo-inner {
+            transform: scale(1.05);
+        }
+
+        .photo-card a:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .photo-inner span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px; font-weight: 500; letter-spacing: 2px;
+            text-transform: uppercase; color: #999;
+        }
+
+        .photo-card:nth-child(1) .photo-inner { height: 380px; }
+        .photo-card:nth-child(2) .photo-inner { height: 280px; }
+        .photo-card:nth-child(3) .photo-inner { height: 320px; }
+        .photo-card:nth-child(4) .photo-inner { height: 300px; }
+        .photo-card:nth-child(5) .photo-inner { height: 360px; }
+        .photo-card:nth-child(6) .photo-inner { height: 280px; }
+        .photo-card:nth-child(7) .photo-inner { height: 320px; }
+        .photo-card:nth-child(8) .photo-inner { height: 300px; }
+
+        /* ── CTA Section ── */
+        .cta-section {
+            text-align: center;
+            padding: 80px 60px 120px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 36px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 64px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--black);
+            color: var(--white);
+            border: 2px solid var(--black);
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .cta-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ── Footer ── */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 60px;
+            border-top: 1px solid #E5E5E5;
+            font-size: 13px;
+            font-weight: 400;
+            color: #999;
+        }
+
+        footer a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--gold);
+        }
+
+        /* ── Language Toggle ── */
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .lang-toggle { display: flex; background: rgba(0,0,0,0.06); border-radius: 20px; padding: 3px; }
+        .lang-btn { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; padding: 5px 12px; border: none; background: transparent; color: rgba(0,0,0,0.35); cursor: none; border-radius: 16px; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+        .lang-btn.active { background: var(--black); color: var(--white); }
+
+        /* ── Animations ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .fade-up-d1 { animation-delay: 0s; }
+        .fade-up-d2 { animation-delay: 0.15s; }
+        .fade-up-d3 { animation-delay: 0.3s; }
+        .fade-up-d4 { animation-delay: 0.45s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .photo-grid {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 20px 24px; }
+
+            .hero {
+                padding: 60px 24px 48px;
+            }
+
+            .grid-section {
+                padding: 0 24px 60px;
+            }
+
+            .photo-grid {
+                columns: 1;
+            }
+
+            .cta-section {
+                padding: 48px 24px 80px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 8px;
+                padding: 24px;
+                text-align: center;
+            }
+
+            .cursor-dot { display: none; }
+            body, a, button { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+
+    <!-- Nav -->
+    <nav>
+        <a href="index.html" class="nav-logo">Reed Creative Agency</a>
+        <div class="nav-right">
+            <div class="lang-toggle">
+                <button class="lang-btn active" id="langEN">EN</button>
+                <button class="lang-btn" id="langZH">中文</button>
+            </div>
+            <a href="index.html" class="nav-back" data-en="← Back" data-zh="← 返回">← Back</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero fade-up fade-up-d1">
+        <h1 data-en="Celebrities<span>.</span>" data-zh="名人<span>.</span>">Celebrities<span>.</span></h1>
+        <p data-en="Talent we've partnered with on campaigns and activations." data-zh="我们合作过的艺人">Talent we've partnered with on campaigns and activations.</p>
+    </section>
+
+    <!-- Photo Grid -->
+    <section class="grid-section fade-up fade-up-d2">
+        <div class="photo-grid">
+            <div class="photo-card">
+                <a href="https://instagram.com/jasonderulo" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/Celebrity Jason Derulo.png" alt="Jason Derulo"></div>
+                    <div class="photo-overlay"><span>Jason Derulo</span></div>
+                </a>
+            </div>
+            <div class="photo-card">
+                <a href="https://instagram.com/justmaiko" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/Celebrity Michael Le.png" alt="Michael Le"></div>
+                    <div class="photo-overlay"><span>Michael Le</span></div>
+                </a>
+            </div>
+            <div class="photo-card">
+                <a href="https://instagram.com/richthekid" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/Celebrity Rich the Kid.JPG" alt="Rich the Kid"></div>
+                    <div class="photo-overlay"><span>Rich the Kid</span></div>
+                </a>
+            </div>
+            <div class="photo-card">
+                <a href="https://instagram.com/thegreatnle" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/NLE Choppa.png" alt="NLE Choppa"></div>
+                    <div class="photo-overlay"><span>NLE Choppa</span></div>
+                </a>
+            </div>
+            <div class="photo-card">
+                <a href="https://instagram.com/stephencurry30" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/Celebrity Steph Curry.JPG" alt="Steph Curry"></div>
+                    <div class="photo-overlay"><span>Steph Curry</span></div>
+                </a>
+            </div>
+            <div class="photo-card">
+                <a href="https://instagram.com/dobretwins" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/Celebrity The Dobre Twins.png" alt="The Dobre Twins"></div>
+                    <div class="photo-overlay"><span>The Dobre Twins</span></div>
+                </a>
+            </div>
+            <div class="photo-card">
+                <a href="https://instagram.com/itsdanielmac" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/Daniel Mac.png" alt="Daniel Mac"></div>
+                    <div class="photo-overlay"><span>Daniel Mac</span></div>
+                </a>
+            </div>
+            <div class="photo-card">
+                <a href="https://instagram.com/juju" target="_blank" rel="noopener">
+                    <div class="photo-inner"><img src="pictures/client Juju.png" alt="Juju"></div>
+                    <div class="photo-overlay"><span>Juju</span></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section fade-up fade-up-d3">
+        <h2 data-en="Want to work with our talent?" data-zh="想与我们的艺人合作？">Want to work with our talent?</h2>
+        <a href="contact.html" class="cta-btn" data-en="Contact Us" data-zh="联系我们">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="fade-up fade-up-d4">
+        <div data-en="&copy; 2025 Reed Creative Agency. All rights reserved." data-zh="&copy; 2025 Reed Creative Agency. 版权所有。">&copy; 2025 Reed Creative Agency. All rights reserved.</div>
+        <div data-en="Contact &nbsp;|&nbsp; <a href='mailto:partnerships@reedcreativeagency.com'>partnerships@reedcreativeagency.com</a>" data-zh="联系 &nbsp;|&nbsp; <a href='mailto:partnerships@reedcreativeagency.com'>partnerships@reedcreativeagency.com</a>">Contact &nbsp;|&nbsp; <a href="mailto:partnerships@reedcreativeagency.com">partnerships@reedcreativeagency.com</a></div>
+    </footer>
+
+    <script>
+        const dot = document.querySelector('.cursor-dot');
+        document.addEventListener('mousemove', (e) => {
+            dot.style.left = e.clientX + 'px';
+            dot.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+            el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        });
+        // Language Toggle
+        const langEN = document.getElementById('langEN');
+        const langZH = document.getElementById('langZH');
+        let currentLang = localStorage.getItem('reed-lang') || 'en';
+        function switchLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('reed-lang', lang);
+            langEN.classList.toggle('active', lang === 'en');
+            langZH.classList.toggle('active', lang === 'zh');
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                if (el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href').startsWith('mailto:')) return;
+                el.innerHTML = el.getAttribute('data-' + lang);
+            });
+        }
+        langEN.addEventListener('click', () => switchLang('en'));
+        langZH.addEventListener('click', () => switchLang('zh'));
+        if (currentLang !== 'en') switchLang(currentLang);
+    </script>
+
+</body>
+</html>
