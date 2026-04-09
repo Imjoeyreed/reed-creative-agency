@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.reedcreativeagency.com/sitemap.xml
