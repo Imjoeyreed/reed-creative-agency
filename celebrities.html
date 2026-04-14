@@ -207,6 +207,51 @@
         .photo-card:nth-child(7) .photo-inner { height: 320px; }
         .photo-card:nth-child(8) .photo-inner { height: 300px; }
 
+        /* ── Tabs ── */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 0 60px 48px;
+        }
+
+        .tab-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--black);
+            background: transparent;
+            color: var(--black);
+            cursor: none;
+            transition: all 0.35s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .tab-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .tab-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* Tab grid visibility */
+        .tab-grid {
+            display: none;
+        }
+
+        .tab-grid.active {
+            display: block;
+        }
+
         /* ── CTA Section ── */
         .cta-section {
             text-align: center;
@@ -312,6 +357,15 @@
                 columns: 1;
             }
 
+            .tabs {
+                padding: 0 24px 32px;
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+                font-size: 10px;
+            }
+
             .cta-section {
                 padding: 48px 24px 80px;
             }
@@ -346,54 +400,86 @@
 
     <!-- Hero -->
     <section class="hero fade-up fade-up-d1">
-        <h1 data-en="Celebrities<span>.</span>" data-zh="名人<span>.</span>">Celebrities<span>.</span></h1>
-        <p data-en="Talent we've partnered with on campaigns and activations." data-zh="我们合作过的艺人">Talent we've partnered with on campaigns and activations.</p>
+        <h1 data-en="Talent<span>.</span>" data-zh="人才<span>.</span>">Talent<span>.</span></h1>
+        <p data-en="Celebrities and creators we've partnered with on campaigns and activations." data-zh="我们在营销活动和品牌激活中合作过的名人和创作者。">Celebrities and creators we've partnered with on campaigns and activations.</p>
     </section>
 
-    <!-- Photo Grid -->
+    <!-- Tabs -->
+    <div class="tabs fade-up fade-up-d2">
+        <button class="tab-btn active" data-target="celebrities" data-en="Celebrities" data-zh="名人">Celebrities</button>
+        <button class="tab-btn" data-target="kols" data-en="Mega KOLs" data-zh="顶级KOL">Mega KOLs</button>
+    </div>
+
+    <!-- Celebrities Grid -->
     <section class="grid-section fade-up fade-up-d2">
-        <div class="photo-grid">
-            <div class="photo-card">
-                <a href="https://instagram.com/jasonderulo" target="_blank" rel="noopener">
-                    <div class="photo-inner"><img src="pictures/Celebrity Jason Derulo.png" alt="Jason Derulo"></div>
-                    <div class="photo-overlay"><span>Jason Derulo</span></div>
-                </a>
+        <div class="tab-grid active" id="grid-celebrities">
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <a href="https://instagram.com/jasonderulo" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/Celebrity Jason Derulo.png" alt="Jason Derulo"></div>
+                        <div class="photo-overlay"><span>Jason Derulo</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/thegreatnle" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/NLE Choppa.png" alt="NLE Choppa"></div>
+                        <div class="photo-overlay"><span>NLE Choppa</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/stephencurry30" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/Celebrity Steph Curry.JPG" alt="Steph Curry"></div>
+                        <div class="photo-overlay"><span>Steph Curry</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/richthekid" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/Celebrity Rich the Kid.JPG" alt="Rich the Kid"></div>
+                        <div class="photo-overlay"><span>Rich the Kid</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/akon" target="_blank" rel="noopener">
+                        <div class="photo-inner"><span>Insert Photo</span></div>
+                        <div class="photo-overlay"><span>Akon</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/isaakpresley" target="_blank" rel="noopener">
+                        <div class="photo-inner"><span>Insert Photo</span></div>
+                        <div class="photo-overlay"><span>Isaak Presley</span></div>
+                    </a>
+                </div>
             </div>
-            <div class="photo-card">
-                <a href="https://instagram.com/justmaiko" target="_blank" rel="noopener">
-                    <div class="photo-inner"><img src="pictures/Celebrity Michael Le.png" alt="Michael Le"></div>
-                    <div class="photo-overlay"><span>Michael Le</span></div>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://instagram.com/richthekid" target="_blank" rel="noopener">
-                    <div class="photo-inner"><img src="pictures/Celebrity Rich the Kid.JPG" alt="Rich the Kid"></div>
-                    <div class="photo-overlay"><span>Rich the Kid</span></div>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://instagram.com/thegreatnle" target="_blank" rel="noopener">
-                    <div class="photo-inner"><img src="pictures/NLE Choppa.png" alt="NLE Choppa"></div>
-                    <div class="photo-overlay"><span>NLE Choppa</span></div>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://instagram.com/dobretwins" target="_blank" rel="noopener">
-                    <div class="photo-inner"><img src="pictures/Celebrity The Dobre Twins.png" alt="The Dobre Twins"></div>
-                    <div class="photo-overlay"><span>The Dobre Twins</span></div>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://instagram.com/itsdanielmac" target="_blank" rel="noopener">
-                    <div class="photo-inner"><img src="pictures/Daniel Mac.png" alt="Daniel Mac"></div>
-                    <div class="photo-overlay"><span>Daniel Mac</span></div>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://instagram.com/juju" target="_blank" rel="noopener">
-                    <div class="photo-inner"><img src="pictures/client Juju.png" alt="Juju"></div>
-                    <div class="photo-overlay"><span>Juju</span></div>
-                </a>
+        </div>
+
+        <!-- Mega KOLs Grid -->
+        <div class="tab-grid" id="grid-kols">
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <a href="https://instagram.com/justmaiko" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/Celebrity Michael Le.png" alt="Michael Le"></div>
+                        <div class="photo-overlay"><span>Michael Le</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/dobretwins" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/Celebrity The Dobre Twins.png" alt="The Dobre Twins"></div>
+                        <div class="photo-overlay"><span>The Dobre Twins</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/itsdanielmac" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/Daniel Mac.png" alt="Daniel Mac"></div>
+                        <div class="photo-overlay"><span>Daniel Mac</span></div>
+                    </a>
+                </div>
+                <div class="photo-card">
+                    <a href="https://instagram.com/juju" target="_blank" rel="noopener">
+                        <div class="photo-inner"><img src="pictures/client Juju.png" alt="Juju"></div>
+                        <div class="photo-overlay"><span>Juju</span></div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -420,6 +506,20 @@
         document.querySelectorAll('a, button').forEach(el => {
             el.addEventListener('mouseenter', () => dot.classList.add('hover'));
             el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        });
+
+        // Tab switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabGrids = document.querySelectorAll('.tab-grid');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-target');
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                tabGrids.forEach(g => g.classList.remove('active'));
+                document.getElementById('grid-' + target).classList.add('active');
+            });
         });
         // Language Toggle
         const langEN = document.getElementById('langEN');
