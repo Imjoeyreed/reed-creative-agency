@@ -1339,13 +1339,10 @@
         });
 
         // Hover detection for interactive elements
-        function setupCursorHover() {
-            document.querySelectorAll('a, button, .hero-cta, .contact-email, .menu-links a, .hamburger, .lang-btn').forEach(el => {
-                el.addEventListener('mouseenter', () => dot.classList.add('hover'));
-                el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
-            });
-        }
-        setupCursorHover();
+        document.querySelectorAll('a, button, .menu-links a, .hamburger, .lang-btn, .svc-cta-link').forEach(el => {
+            el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+            el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        });
 
         // ── Hamburger Menu ──
         const hamburger = document.getElementById('hamburger');
@@ -1379,37 +1376,10 @@
             }
         });
 
-        // ── Nav: fade out on scroll past hero ──
+        // ── Nav: solid background after scrolling ──
         const mainNav = document.getElementById('mainNav');
-        const heroSection = document.getElementById('hero');
-        let navVisible = true;
-
-        const isMobile = () => window.innerWidth <= 768;
-
         window.addEventListener('scroll', () => {
-            const heroBottom = heroSection.offsetHeight;
-            const scrollY = window.scrollY;
-
-            if (scrollY > heroBottom * 0.85) {
-                if (isMobile()) {
-                    // On mobile: keep nav visible but switch to solid bg
-                    mainNav.classList.remove('hidden');
-                    mainNav.classList.add('scrolled');
-                    navVisible = true;
-                } else {
-                    if (navVisible) {
-                        mainNav.classList.add('hidden');
-                        mainNav.classList.remove('scrolled');
-                        navVisible = false;
-                    }
-                }
-            } else {
-                if (!navVisible) {
-                    mainNav.classList.remove('hidden');
-                }
-                mainNav.classList.remove('scrolled');
-                navVisible = true;
-            }
+            mainNav.classList.toggle('scrolled', window.scrollY > 50);
         });
 
         // ── Scroll direction tracking ──
@@ -1421,59 +1391,27 @@
             lastScroll = curr;
         });
 
-        // ── Reversible observer ──
-        // Scrolling DOWN: element enters viewport from bottom → animate in
-        // Scrolling UP: element leaves viewport from bottom → animate out (reverse)
-        // Scrolling down past (element exits top): stays visible, no flicker
+        // ── Reversible observer (animate in on scroll down, out on scroll up) ──
         function createReversibleObserver(opts) {
             return new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     } else if (scrollDir === 'up' && entry.boundingClientRect.top > 0) {
-                        // Only remove when element is BELOW viewport (user scrolled up)
                         entry.target.classList.remove('visible');
                     }
                 });
             }, opts);
         }
 
-        // Founder strip
-        const founderStrip = document.getElementById('founder-strip');
-        const founderObserver = createReversibleObserver({ threshold: 0.2 });
-        founderObserver.observe(founderStrip);
-
-        // All other animated elements
         const observer = createReversibleObserver({
             threshold: 0.15,
             rootMargin: '0px 0px -40px 0px'
         });
 
-        document.querySelectorAll('.slide-in, .china-stat, .svc-row.reveal').forEach((el, i) => {
+        document.querySelectorAll('.svc-row.reveal').forEach((el, i) => {
             el.style.transitionDelay = `${i % 4 * 0.15}s`;
             observer.observe(el);
-        });
-
-        // ── Client Tabs ──
-        const clientTabs = document.querySelectorAll('.client-tab');
-        const clientGrids = document.querySelectorAll('.clients-grid');
-
-        clientTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.getAttribute('data-target');
-
-                // Toggle active tab
-                clientTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                // Toggle active grid with crossfade
-                clientGrids.forEach(g => g.classList.remove('active'));
-                document.getElementById('grid-' + target).classList.add('active');
-            });
-
-            // Cursor hover
-            tab.addEventListener('mouseenter', () => dot.classList.add('hover'));
-            tab.addEventListener('mouseleave', () => dot.classList.remove('hover'));
         });
 
         // ── Language Toggle ──
@@ -1485,14 +1423,11 @@
             currentLang = lang;
             localStorage.setItem('reed-lang', lang);
 
-            // Toggle active button
             langEN.classList.toggle('active', lang === 'en');
             langZH.classList.toggle('active', lang === 'zh');
 
-            // Toggle body font class
             document.body.classList.toggle('lang-zh', lang === 'zh');
 
-            // Swap all translatable text (data-en/data-zh attribute pattern)
             document.querySelectorAll('[data-en][data-zh]').forEach(el => {
                 const text = el.getAttribute('data-' + lang);
                 if (el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href').startsWith('mailto:')) {
@@ -1501,8 +1436,6 @@
                 el.innerHTML = text;
             });
 
-            // Swap all translatable text (data-lang span pattern)
-            // Exclude lang toggle buttons from being hidden
             document.querySelectorAll('[data-lang="en"]:not(.lang-btn)').forEach(el => {
                 el.style.display = lang === 'en' ? '' : 'none';
             });
@@ -1514,7 +1447,6 @@
         langEN.addEventListener('click', () => switchLang('en'));
         langZH.addEventListener('click', () => switchLang('zh'));
 
-        // Apply saved language on load
         if (currentLang !== 'en') {
             switchLang(currentLang);
         }
