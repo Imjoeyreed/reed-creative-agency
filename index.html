@@ -1202,112 +1202,47 @@
         </div>
     </section>
 
-    <!-- Services -->
+    <!-- Services Teaser -->
     <div id="services">
-      <div class="section-header" style="padding: 40px 48px 32px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end;">
-        <div>
-          <div class="section-label" style="margin-bottom:18px"><span data-lang="en">Expertise</span><span data-lang="zh" style="display:none">专业服务</span></div>
-          <div class="section-title"><span data-lang="en">What we <em>do.</em></span><span data-lang="zh" style="display:none">我们的<em>服务</em></span></div>
-        </div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:700;color:rgba(255,255,255,0.05);line-height:1;letter-spacing:-0.03em;"></div>
+      <div class="section-header" style="padding: 40px 48px 32px; border-bottom: 1px solid var(--line);">
+        <div class="section-label" style="margin-bottom:18px"><span data-lang="en">Expertise</span><span data-lang="zh" style="display:none">专业服务</span></div>
+        <div class="section-title"><span data-lang="en">What we <em>do.</em></span><span data-lang="zh" style="display:none">我们的<em>服务</em></span></div>
       </div>
 
       <style>
-        .svc-row { display:grid; grid-template-columns:1fr 1fr; min-height:360px; border-bottom:1px solid var(--line); overflow:hidden; cursor:pointer; }
-        .svc-row.flip { direction:rtl; }
-        .svc-row.flip > * { direction:ltr; }
-        .svc-photo { position:relative; overflow:hidden; background:#111; }
-        .svc-photo-fill { width:100%; height:100%; min-height:360px; background:#181818; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:transform 0.8s cubic-bezier(0.77,0,0.175,1); }
-        .svc-row:hover .svc-photo-fill { transform:scale(1.04); }
-        .svc-photo-fill svg { width:28px; height:28px; stroke:#2a2a2a; fill:none; stroke-width:1; }
-        .svc-photo-fill span { font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:#2a2a2a; }
-        .svc-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(105deg,rgba(8,8,8,0.15) 0%,rgba(8,8,8,0) 100%); pointer-events:none; }
-        .svc-row.flip .svc-photo::after { background:linear-gradient(255deg,rgba(8,8,8,0.15) 0%,rgba(8,8,8,0) 100%); }
-        .svc-num-tag { position:absolute; top:32px; left:32px; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); z-index:2; }
-        .svc-row.flip .svc-num-tag { left:auto; right:32px; }
-        .svc-body { display:flex; flex-direction:column; justify-content:flex-end; padding:36px 40px 36px 48px; background:var(--black); position:relative; }
-        .svc-row.flip .svc-body { padding:36px 48px 36px 40px; }
-        .svc-vline { position:absolute; top:0; left:0; width:2px; height:0%; background:var(--gold); transition:height 0.5s cubic-bezier(0.77,0,0.175,1); }
-        .svc-row.flip .svc-vline { left:auto; right:0; }
-        .svc-row:hover .svc-vline { height:100%; }
-        .svc-cat { font-size:10px; font-weight:500; letter-spacing:0.24em; text-transform:uppercase; color:#666; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
-        .svc-cat::before { content:''; width:16px; height:1px; background:#666; flex-shrink:0; }
-        .svc-heading { font-family:'Barlow Condensed',sans-serif; font-size:clamp(28px,3vw,44px); font-weight:700; text-transform:uppercase; letter-spacing:-0.01em; color:var(--white); line-height:0.95; margin-bottom:20px; }
-        .svc-heading em { font-family:'Playfair Display',serif; font-style:italic; font-weight:400; color:var(--gold); text-transform:none; letter-spacing:0; font-size:0.82em; }
-        .svc-coming-badge { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(201,168,76,0.35); padding:5px 14px; display:inline-block; margin-top:14px; margin-left:8px; }
-        .svc-p { font-size:14px; font-weight:300; color:#666; line-height:1.7; max-width:400px; margin-bottom:28px; }
-        .svc-stats { display:flex; gap:40px; padding-top:28px; border-top:1px solid var(--line); }
-        .svc-stat-num { font-family:'Barlow Condensed',sans-serif; font-size:28px; font-weight:700; color:var(--white); letter-spacing:-0.01em; line-height:1; display:block; margin-bottom:4px; }
-        .svc-stat-lbl { font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#666; display:block; }
-        .svc-cta-link { margin-top:auto; padding-top:24px; display:flex; align-items:center; gap:12px; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:#666; text-decoration:none; transition:color 0.2s; cursor:none; }
-        .svc-cta-link::after { content:'\2192'; font-size:16px; transition:transform 0.2s; }
-        .svc-row:hover .svc-cta-link { color:var(--white); }
-        .svc-row:hover .svc-cta-link::after { transform:translateX(6px); }
-        .svc-footer-cta { padding:80px 48px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); gap:40px; }
-        .svc-footer-title { font-family:'Barlow Condensed',sans-serif; font-size:clamp(28px,3.5vw,48px); font-weight:700; text-transform:uppercase; letter-spacing:-0.01em; color:var(--white); line-height:1; }
-        .svc-footer-title em { font-family:'Playfair Display',serif; font-style:italic; font-weight:400; color:var(--gold); text-transform:none; letter-spacing:0; }
+        #services .section-label { font-size:10px; font-weight:600; letter-spacing:0.24em; text-transform:uppercase; color:var(--gold); }
+        #services .section-title { font-family:'Barlow Condensed',sans-serif; font-size:clamp(40px,5vw,72px); font-weight:700; text-transform:uppercase; letter-spacing:-0.01em; color:var(--white); line-height:0.95; }
+        #services .section-title em { font-family:'Playfair Display',serif; font-style:italic; font-weight:400; color:var(--gold); text-transform:none; letter-spacing:0; }
+        .svc-tease-item { display:flex; align-items:center; gap:24px; padding:24px 48px; border-bottom:1px solid var(--line); text-decoration:none; transition:background 0.25s ease, padding-left 0.25s ease; cursor:none; }
+        .svc-tease-item:hover { background:rgba(255,255,255,0.02); padding-left:56px; }
+        .svc-tease-num { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.18em; color:var(--gold); min-width:28px; }
+        .svc-tease-name { font-family:'Barlow Condensed',sans-serif; font-size:clamp(20px,2.4vw,30px); font-weight:700; text-transform:uppercase; letter-spacing:0.01em; color:var(--white); }
+        .svc-tease-badge { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(201,168,76,0.35); padding:4px 12px; }
+        .svc-tease-new { margin-left:auto; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); }
+        .svc-tease-foot { padding:56px 48px; }
+        @media (max-width:768px) {
+          #services .section-header { padding:32px 20px 24px !important; }
+          #services .section-title { font-size:32px !important; }
+          #services .section-label { font-size:9px !important; }
+          .svc-tease-item { padding:18px 20px; gap:14px; }
+          .svc-tease-item:hover { padding-left:20px; }
+          .svc-tease-name { font-size:20px; }
+          .svc-tease-foot { padding:40px 20px; }
+        }
       </style>
 
-      <!-- 01 -->
-      <div class="svc-row reveal">
-        <div class="svc-photo">
-          <div class="svc-photo-fill"><img src="pictures/mega kol campaigns.JPG" alt="Mega KOL Campaigns" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="svc-num-tag">01</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-vline"></div>
-          <div class="svc-cat"><span data-lang="en">Brand Partnerships</span><span data-lang="zh" style="display:none">品牌合作</span></div>
-          <div class="svc-heading"><span data-lang="en">Mega KOL &amp;<br><em>Celebrity</em><br>Campaigns</span><span data-lang="zh" style="display:none">顶级KOL与<br><em>明星</em>合作</span></div>
-          <p class="svc-p"><span data-lang="en">We connect brands with the biggest names in culture. A-list talent, seven-figure reach, and campaigns built to dominate feeds — not just fill them.</span><span data-lang="zh" style="display:none">我们将品牌与文化领域最具影响力的名人连接，打造统治社交媒体的顶级营销活动。</span></p>
-          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Start a Campaign</span><span data-lang="zh" style="display:none">开始合作</span></a>
-        </div>
+      <div class="svc-tease-list">
+        <a href="services.html#service-01" class="svc-tease-item"><span class="svc-tease-num">01</span><span class="svc-tease-name"><span data-lang="en">Mega KOL &amp; Celebrity Campaigns</span><span data-lang="zh" style="display:none">顶级KOL与明星合作</span></span></a>
+        <a href="services.html#service-02" class="svc-tease-item"><span class="svc-tease-num">02</span><span class="svc-tease-name"><span data-lang="en">Creator Management</span><span data-lang="zh" style="display:none">创作者管理</span></span></a>
+        <a href="services.html#service-03" class="svc-tease-item"><span class="svc-tease-num">03</span><span class="svc-tease-name"><span data-lang="en">Chinese Market</span><span data-lang="zh" style="display:none">中国市场</span></span><span class="svc-tease-badge"><span data-lang="en">Coming Soon</span><span data-lang="zh" style="display:none">即将推出</span></span></a>
+        <a href="services.html#service-04" class="svc-tease-item"><span class="svc-tease-num">04</span><span class="svc-tease-name"><span data-lang="en">Brand Activations</span><span data-lang="zh" style="display:none">品牌活动</span></span></a>
+        <a href="services.html#service-05" class="svc-tease-item"><span class="svc-tease-num">05</span><span class="svc-tease-name"><span data-lang="en">AI Product Content</span><span data-lang="zh" style="display:none">AI产品内容</span></span><span class="svc-tease-new"><span data-lang="en">New</span><span data-lang="zh" style="display:none">新</span></span></a>
+        <a href="services.html#service-06" class="svc-tease-item"><span class="svc-tease-num">06</span><span class="svc-tease-name"><span data-lang="en">Web Design &amp; SEO</span><span data-lang="zh" style="display:none">网站设计与SEO</span></span><span class="svc-tease-new"><span data-lang="en">New</span><span data-lang="zh" style="display:none">新</span></span></a>
       </div>
 
-      <!-- 02 -->
-      <div class="svc-row flip reveal">
-        <div class="svc-photo">
-          <div class="svc-photo-fill"><img src="pictures/creator management.JPG" alt="Creator Management" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="svc-num-tag">02</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-vline"></div>
-          <div class="svc-cat"><span data-lang="en">Talent Representation</span><span data-lang="zh" style="display:none">人才代理</span></div>
-          <div class="svc-heading"><span data-lang="en">Creator<br><em>Management</em></span><span data-lang="zh" style="display:none">创作者<em>管理</em></span></div>
-          <p class="svc-p"><span data-lang="en">We handle deal flow, brand negotiations, and relationship management for our roster. Creators create. We close.</span><span data-lang="zh" style="display:none">我们负责交易流程、品牌谈判和关系管理。创作者专注创作，我们负责成交。</span></p>
-          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Join the Roster</span><span data-lang="zh" style="display:none">加入阵容</span></a>
-        </div>
+      <div class="svc-tease-foot">
+        <a href="services.html" class="btn-primary"><span data-lang="en">View All Services →</span><span data-lang="zh" style="display:none">查看所有服务 →</span></a>
       </div>
-
-      <!-- 03 -->
-      <div class="svc-row reveal">
-        <div class="svc-photo">
-          <div class="svc-photo-fill"><img src="pictures/china market.JPG" alt="China Market" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="svc-num-tag">03</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-vline"></div>
-          <div class="svc-cat"><span data-lang="en">Coming Soon</span><span data-lang="zh" style="display:none">即将推出</span></div>
-          <div class="svc-heading"><span data-lang="en">Jump Into the<br>Chinese <em>Market</em></span><span data-lang="zh" style="display:none">进入<em>中国市场</em></span><div class="svc-coming-badge">Coming Soon</div></div>
-          <p class="svc-p"><span data-lang="en">We're looking to expand marketing in China for US celebrities and Mega KOLs. Native content, native reach — not a repurposed Western campaign.</span><span data-lang="zh" style="display:none">我们正在为美国名人和顶级KOL拓展中国市场营销。原生内容，原生覆盖——不是西方活动的简单复制。</span></p>
-          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Keep Updated</span><span data-lang="zh" style="display:none">保持关注</span></a>
-        </div>
-      </div>
-
-      <!-- 04 -->
-      <div class="svc-row flip reveal">
-        <div class="svc-photo">
-          <div class="svc-photo-fill"><img src="pictures/brand acitivations.JPG" alt="Brand Activations" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="svc-num-tag">04</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-vline"></div>
-          <div class="svc-cat"><span data-lang="en">Events · Los Angeles</span><span data-lang="zh" style="display:none">活动 · 洛杉矶</span></div>
-          <div class="svc-heading"><span data-lang="en">Brand<br><em>Activations</em></span><span data-lang="zh" style="display:none">品牌<em>快闪活动</em></span></div>
-          <p class="svc-p"><span data-lang="en">Creator-driven events built to generate millions of organic impressions. We design the moment. The internet does the rest.</span><span data-lang="zh" style="display:none">以创作者为核心的活动，产生数百万次自然曝光。我们设计时刻，互联网完成其余。</span></p>
-          <a href="contact.html" class="svc-cta-link"><span data-lang="en">Sponsor an Event</span><span data-lang="zh" style="display:none">赞助活动</span></a>
-        </div>
-      </div>
-
     </div>
 
     <!-- China Market Section -->
