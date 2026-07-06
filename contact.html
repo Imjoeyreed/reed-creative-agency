@@ -298,6 +298,105 @@
             }
         }
 
+        /* ── Guided Contact Wizard (RCA) ── */
+        .rca-form {
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            min-height: 480px;
+        }
+        .rca-progress { display: flex; align-items: center; gap: 8px; margin-bottom: 40px; }
+        .rca-progress .seg { height: 2px; flex: 1; background: #E8E4DC; position: relative; overflow: hidden; }
+        .rca-progress .seg.on::after { content: ''; position: absolute; inset: 0; background: var(--gold); }
+        .rca-q {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(30px, 4vw, 42px);
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+        .rca-sub { color: #888; font-size: 14px; font-weight: 300; line-height: 1.5; margin-bottom: 28px; }
+        .rca-opts { display: flex; flex-direction: column; gap: 12px; }
+        .rca-btn {
+            appearance: none;
+            background: var(--white);
+            border: 1px solid #E2DED6;
+            color: var(--black);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: left;
+            padding: 18px 20px;
+            cursor: none;
+            transition: border-color .25s ease, background .25s ease, transform .12s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .rca-btn:hover, .rca-btn:focus-visible { border-color: var(--gold); background: #FBF9F4; outline: none; }
+        .rca-btn:active { transform: scale(.985); }
+        .rca-btn .arr { color: var(--gold); font-size: 15px; opacity: 0; transform: translateX(-6px); transition: opacity .2s ease, transform .2s ease; }
+        .rca-btn:hover .arr, .rca-btn:focus-visible .arr { opacity: 1; transform: translateX(0); }
+        .rca-btn small { display: block; color: #999; font-size: 12.5px; font-weight: 300; margin-top: 3px; }
+        .rca-back {
+            background: none; border: none; color: #999;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+            cursor: none; padding: 0; margin-top: auto; padding-top: 36px;
+            display: none; text-align: left;
+            transition: color 0.3s;
+        }
+        .rca-back:hover { color: var(--gold); }
+        .rca-back.show { display: block; }
+        .rca-field { margin-bottom: 20px; }
+        .rca-field label {
+            display: block; font-size: 11px; font-weight: 600; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--black); margin-bottom: 8px;
+        }
+        .rca-field input, .rca-field textarea {
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px; font-weight: 300;
+            padding: 12px 0;
+            border: none; border-bottom: 1.5px solid #D0D0D0;
+            background: transparent; color: var(--black);
+            outline: none; transition: border-color 0.3s; resize: vertical;
+        }
+        .rca-field input:focus, .rca-field textarea:focus { border-color: var(--gold); }
+        .rca-field textarea { min-height: 70px; }
+        .rca-submit {
+            width: 100%;
+            background: var(--black); color: var(--white);
+            border: 2px solid var(--black);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+            padding: 18px; cursor: none; margin-top: 16px;
+            transition: all 0.4s ease;
+        }
+        .rca-submit:hover { background: var(--gold); border-color: var(--gold); }
+        .rca-submit:disabled { opacity: .35; cursor: not-allowed; }
+        .rca-receipt {
+            border: 1px solid #E2DED6; border-top: 2px solid var(--gold);
+            background: #FBF9F4; padding: 24px; margin-bottom: 24px;
+        }
+        .rca-receipt .row {
+            display: flex; justify-content: space-between; gap: 16px;
+            padding: 9px 0; border-bottom: 1px solid #EDE9E1; font-size: 14px;
+        }
+        .rca-receipt .row:last-child { border-bottom: none; }
+        .rca-receipt .k { color: #999; letter-spacing: 1px; text-transform: uppercase; font-size: 10.5px; padding-top: 2px; }
+        .rca-receipt .v { text-align: right; font-weight: 500; }
+        .rca-step { animation: rcaIn .28s ease both; }
+        @keyframes rcaIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .rca-step { animation: none; }
+            .rca-btn, .rca-btn .arr { transition: none; }
+        }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
             nav { padding: 20px 24px; }
@@ -357,43 +456,11 @@
         </div>
 
         <div class="contact-right fade-up">
-            <form action="mailto:partnerships@reedcreativeagency.com" method="POST" enctype="text/plain">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="firstName" data-en="First Name" data-zh="名">First Name</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="First name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName" data-en="Last Name" data-zh="姓">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email" data-en="Email" data-zh="邮箱">Email</label>
-                        <input type="email" id="email" name="email" placeholder="you@company.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone" data-en="Phone" data-zh="电话">Phone</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+1 (000) 000-0000">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="instagram">Instagram <span class="optional" data-en="(optional)" data-zh="(选填)">(optional)</span></label>
-                        <input type="text" id="instagram" name="instagram" placeholder="@username">
-                    </div>
-                    <div class="form-group">
-                        <label for="tiktok">TikTok <span class="optional" data-en="(optional)" data-zh="(选填)">(optional)</span></label>
-                        <input type="text" id="tiktok" name="tiktok" placeholder="@username">
-                    </div>
-                </div>
-                <div class="form-group form-group-message">
-                    <label for="message" data-en="Message" data-zh="留言">Message</label>
-                    <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
-                </div>
-                <button type="submit" class="submit-btn" data-en="Submit" data-zh="提交">Submit</button>
-            </form>
+            <div class="rca-form" id="rcaForm">
+                <div class="rca-progress" id="rcaProgress"></div>
+                <div id="rcaStep" class="rca-step"></div>
+                <button class="rca-back" id="rcaBack" type="button">&larr; Back</button>
+            </div>
         </div>
     </div>
 
@@ -410,9 +477,12 @@
             dot.style.top = e.clientY + 'px';
         });
 
-        document.querySelectorAll('a, button, input, textarea').forEach(el => {
-            el.addEventListener('mouseenter', () => dot.classList.add('hover'));
-            el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        // Delegated so the cursor also reacts to the wizard's dynamically rendered buttons
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, input, textarea')) dot.classList.add('hover');
+        });
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, input, textarea')) dot.classList.remove('hover');
         });
 
         // Language toggle with persistence
@@ -434,6 +504,195 @@
         langEN.addEventListener('click', () => switchLang('en'));
         langZH.addEventListener('click', () => switchLang('zh'));
         if (currentLang !== 'en') switchLang(currentLang);
+    </script>
+
+    <script>
+    (function(){
+      // ====== CONFIG ======
+      var LEAD_EMAIL = "partnerships@reedcreativeagency.com";
+
+      var answers = {};
+      var history = [];
+
+      var FLOW = {
+        start: {
+          q: "You are a…",
+          sub: "Takes about 20 seconds. No forms, just taps.",
+          key: "type",
+          opts: [
+            {label:"Brand", small:"I want to run a campaign, event, or content", next:"brandNeed"},
+            {label:"Agency", small:"Booking talent or exploring a partnership", next:"agencyNeed"},
+            {label:"Creator / Athlete", small:"Roster, management, or collab", next:"creatorNeed"},
+            {label:"Other", small:"Press, speaking, everything else", next:"contact"}
+          ]
+        },
+        brandNeed: {
+          q: "What are you looking to do?",
+          key: "need",
+          opts: [
+            {label:"Creator campaign", small:"Influencer content across TikTok / IG / YouTube", next:"brandBudget"},
+            {label:"Event or activation", small:"Talent appearances, event production", next:"brandBudget"},
+            {label:"Content production", small:"UGC, brand content, creative direction", next:"brandBudget"},
+            {label:"Not sure yet", small:"Tell us the goal, we'll shape it", next:"brandBudget"}
+          ]
+        },
+        brandBudget: {
+          q: "Working budget?",
+          sub: "Ballpark is fine — it just helps us scope the right talent.",
+          key: "budget",
+          opts: [
+            {label:"Under $5K", next:"timeline"},
+            {label:"$5K – $25K", next:"timeline"},
+            {label:"$25K – $100K", next:"timeline"},
+            {label:"$100K+", next:"timeline"}
+          ]
+        },
+        timeline: {
+          q: "When does this need to happen?",
+          key: "timeline",
+          opts: [
+            {label:"ASAP", small:"Live within 2–3 weeks", next:"contact"},
+            {label:"This quarter", next:"contact"},
+            {label:"Planning ahead", small:"Just scoping for now", next:"contact"}
+          ]
+        },
+        agencyNeed: {
+          q: "What can we help with?",
+          key: "need",
+          opts: [
+            {label:"Book Reed talent", small:"Campaign or appearance for a client", next:"brandBudget"},
+            {label:"Partnership", small:"Agency-to-agency, ongoing", next:"contact"},
+            {label:"Press / media", next:"contact"}
+          ]
+        },
+        creatorNeed: {
+          q: "What are you here for?",
+          key: "need",
+          opts: [
+            {label:"Join the roster", small:"Get considered for brand deals", next:"creatorSize"},
+            {label:"Management", small:"Representation inquiry", next:"creatorSize"},
+            {label:"Collab with Joey", small:"Content collab", next:"contact"}
+          ]
+        },
+        creatorSize: {
+          q: "Total following, all platforms?",
+          key: "reach",
+          opts: [
+            {label:"Under 50K", next:"contact"},
+            {label:"50K – 250K", next:"contact"},
+            {label:"250K – 1M", next:"contact"},
+            {label:"1M+", next:"contact"}
+          ]
+        }
+      };
+
+      var TOTAL_SEGS = 4;
+      var stepEl = document.getElementById("rcaStep");
+      var backEl = document.getElementById("rcaBack");
+      var progEl = document.getElementById("rcaProgress");
+
+      function renderProgress(n){
+        progEl.innerHTML = "";
+        for(var i=0;i<TOTAL_SEGS;i++){
+          var s = document.createElement("div");
+          s.className = "seg" + (i < n ? " on" : "");
+          progEl.appendChild(s);
+        }
+      }
+
+      function show(stepId){
+        var step = FLOW[stepId];
+        history.push(stepId);
+        renderProgress(history.length);
+        backEl.classList.toggle("show", history.length > 1);
+
+        if(stepId === "contact"){ return renderContact(); }
+
+        stepEl.classList.remove("rca-step"); void stepEl.offsetWidth; stepEl.classList.add("rca-step");
+        var html = '<div class="rca-q">'+step.q+'</div>';
+        if(step.sub) html += '<div class="rca-sub">'+step.sub+'</div>';
+        html += '<div class="rca-opts">';
+        step.opts.forEach(function(o,i){
+          html += '<button class="rca-btn" data-i="'+i+'"><span>'+o.label+
+            (o.small ? '<small>'+o.small+'</small>' : '')+
+            '</span><span class="arr">&rarr;</span></button>';
+        });
+        html += '</div>';
+        stepEl.innerHTML = html;
+
+        stepEl.querySelectorAll(".rca-btn").forEach(function(btn){
+          btn.addEventListener("click", function(){
+            var o = step.opts[+btn.dataset.i];
+            answers[step.key] = o.label;
+            show(o.next);
+          });
+        });
+      }
+
+      function renderContact(){
+        stepEl.classList.remove("rca-step"); void stepEl.offsetWidth; stepEl.classList.add("rca-step");
+        renderProgress(TOTAL_SEGS);
+        var html = '<div class="rca-q">Last step.</div>'+
+          '<div class="rca-sub">Where do we reach you?</div>'+
+          '<div class="rca-field"><label>Name</label><input id="rcaName" type="text" autocomplete="name"></div>'+
+          '<div class="rca-field"><label>Email</label><input id="rcaEmail" type="email" autocomplete="email"></div>'+
+          '<div class="rca-field"><label>Instagram / TikTok handle (optional)</label><input id="rcaHandle" type="text" placeholder="@"></div>'+
+          '<div class="rca-field"><label>Anything else (optional)</label><textarea id="rcaMsg"></textarea></div>'+
+          '<button class="rca-submit" id="rcaSubmit" disabled>Send it</button>';
+        stepEl.innerHTML = html;
+
+        var nameI = document.getElementById("rcaName"),
+            emailI = document.getElementById("rcaEmail"),
+            sub = document.getElementById("rcaSubmit");
+
+        function check(){
+          sub.disabled = !(nameI.value.trim() && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailI.value.trim()));
+        }
+        nameI.addEventListener("input", check);
+        emailI.addEventListener("input", check);
+
+        sub.addEventListener("click", function(){
+          answers.name = nameI.value.trim();
+          answers.email = emailI.value.trim();
+          answers.handle = document.getElementById("rcaHandle").value.trim();
+          answers.message = document.getElementById("rcaMsg").value.trim();
+          sendLead(answers);
+          renderDone();
+        });
+      }
+
+      function sendLead(a){
+        // Opens a pre-filled email to partnerships@. Swap for a fetch() POST
+        // to Formspree/Zapier/the Reed dashboard API when ready.
+        var body = Object.keys(a).map(function(k){
+          return k.toUpperCase()+": "+a[k];
+        }).join("%0D%0A");
+        var subj = encodeURIComponent("[RCA Inquiry] "+(a.type||"")+" — "+(a.need||a.message||""));
+        window.location.href = "mailto:"+LEAD_EMAIL+"?subject="+subj+"&body="+body;
+      }
+
+      function renderDone(){
+        stepEl.classList.remove("rca-step"); void stepEl.offsetWidth; stepEl.classList.add("rca-step");
+        backEl.classList.remove("show");
+        var rows = "";
+        var labels = {type:"You are", need:"Looking for", budget:"Budget", timeline:"Timeline", reach:"Reach", name:"Name", email:"Email", handle:"Handle"};
+        Object.keys(labels).forEach(function(k){
+          if(answers[k]) rows += '<div class="row"><span class="k">'+labels[k]+'</span><span class="v">'+answers[k]+'</span></div>';
+        });
+        stepEl.innerHTML =
+          '<div class="rca-q">Got it. We\'ll be in touch.</div>'+
+          '<div class="rca-sub">Here\'s what you sent us:</div>'+
+          '<div class="rca-receipt">'+rows+'</div>';
+      }
+
+      backEl.addEventListener("click", function(){
+        history.pop();
+        var prev = history.pop();
+        if(prev) show(prev);
+      });
+
+      show("start");
+    })();
     </script>
 
 </body>
