@@ -466,7 +466,7 @@
 
     <!-- Footer -->
     <footer>
-        <div>&copy; 2025 Reed Creative Agency</div>
+        <div>&copy; 2025 Reed Creative Agency &middot; Powered by Joey Reed Inc</div>
         <div>reedcreativeagency.com</div>
     </footer>
 
@@ -656,19 +656,32 @@
           answers.email = emailI.value.trim();
           answers.handle = document.getElementById("rcaHandle").value.trim();
           answers.message = document.getElementById("rcaMsg").value.trim();
-          sendLead(answers);
-          renderDone();
+          sub.disabled = true;
+          sub.textContent = "Sending…";
+          sendLead(answers, renderDone);
         });
       }
 
-      function sendLead(a){
-        // Opens a pre-filled email to partnerships@. Swap for a fetch() POST
-        // to Formspree/Zapier/the Reed dashboard API when ready.
-        var body = Object.keys(a).map(function(k){
-          return k.toUpperCase()+": "+a[k];
-        }).join("%0D%0A");
-        var subj = encodeURIComponent("[RCA Inquiry] "+(a.type||"")+" — "+(a.need||a.message||""));
-        window.location.href = "mailto:"+LEAD_EMAIL+"?subject="+subj+"&body="+body;
+      var API_BASE = "https://web-production-7116.up.railway.app";
+
+      function sendLead(a, done){
+        // POSTs straight into the Reed inbound pipeline (dashboard + Telegram).
+        // If the API is unreachable, falls back to a pre-filled email.
+        fetch(API_BASE + "/api/website-inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(a)
+        })
+        .then(function(r){ if(!r.ok) throw new Error("api " + r.status); return r.json(); })
+        .then(function(){ done(); })
+        .catch(function(){
+          var body = Object.keys(a).map(function(k){
+            return k.toUpperCase()+": "+a[k];
+          }).join("%0D%0A");
+          var subj = encodeURIComponent("[RCA Inquiry] "+(a.type||"")+" — "+(a.need||a.message||""));
+          window.location.href = "mailto:"+LEAD_EMAIL+"?subject="+subj+"&body="+body;
+          done();
+        });
       }
 
       function renderDone(){
